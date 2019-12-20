@@ -3,3 +3,9 @@
 ################################################################################
 
 /.vs/SuperSocketRRPCClientProject/v16/Server/sqlite3
+/ATest/bin/Debug/netcoreapp3.1
+/ATest/obj
+/SuperSocketAOPClientContainer/bin/Debug
+/SuperSocketAOPClientContainer/obj
+/SuperSocketRRPCClient/bin/Debug
+/SuperSocketRRPCClient/obj

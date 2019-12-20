@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Ming</Authors>
+    <Description>SuperSocket封装的双向RPC通讯组件很简陋 客户端AOP</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SuperSocketRRPCClient\SuperSocketRRPCClient.csproj" />
+  </ItemGroup>
+
+</Project>
