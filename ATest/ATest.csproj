@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\supersocketTest\supersocketTest\IRPCService\IRPCService.csproj" />
+    <ProjectReference Include="..\..\..\supersocketTest\supersocketTest\RPCService\RPCService.csproj" />
     <ProjectReference Include="..\SuperSocketAOPClientContainer\SuperSocketAOPClientContainer.csproj" />
     <ProjectReference Include="..\SuperSocketRRPCClient\SuperSocketRRPCClient.csproj" />
   </ItemGroup>

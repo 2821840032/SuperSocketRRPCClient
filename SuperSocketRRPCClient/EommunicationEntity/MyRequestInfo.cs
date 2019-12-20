@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperSocketClient
+namespace SuperSocketRRPCClient
 {
     /// <summary>
     /// 接受信息最基础的类

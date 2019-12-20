@@ -1,5 +1,4 @@
 ﻿using Castle.DynamicProxy;
-using SuperSocketClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +20,6 @@ namespace SuperSocketAOPClientContainer
 
         protected override void PerformProceed(IInvocation invocation)
         {
-            Console.WriteLine(invocation.Method.Name + "执行中");
             try
             {
                 invocation.ReturnValue=Implement.Invoke(invocation);
@@ -29,6 +27,7 @@ namespace SuperSocketAOPClientContainer
             catch (Exception ex)
             {
                 HandleException(ex);
+                throw ex;
               
             }
         }

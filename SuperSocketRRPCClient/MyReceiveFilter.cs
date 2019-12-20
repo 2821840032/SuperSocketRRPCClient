@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperSocketClient
+namespace SuperSocketRRPCClient
 {
     
     public class MyReceiveFilter : SuperSocket.ProtoBase.FixedHeaderReceiveFilter<RequestBaseInfo>

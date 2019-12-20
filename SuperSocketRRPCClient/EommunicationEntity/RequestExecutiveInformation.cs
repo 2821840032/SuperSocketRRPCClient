@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperSocketClient
+namespace SuperSocketRRPCClient
 {
     /// <summary>
     /// 请求信息

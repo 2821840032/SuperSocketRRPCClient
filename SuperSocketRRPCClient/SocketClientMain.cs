@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SuperSocket.ClientEngine;
+using SuperSocketRRPCClient;
 using SuperSocketRRPCUnity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperSocketClient
+namespace SuperSocketRRPCClient
 {
    public class SocketClientMain: EasyClient
     {
@@ -18,39 +19,57 @@ namespace SuperSocketClient
         private UnityInIt unityCon { get; set; }
 
         IPEndPoint RemoteEndpoint { get; set; }
+
         /// <summary>
-        /// 执行事件中的方法
+        /// 远程任务队列
         /// </summary>
-        public Dictionary<Guid, Action<string>> MethodIDs { get; set; }
-        public SocketClientMain(string ip, int prot) {
-            MethodIDs = new Dictionary<Guid, Action<string>>();
+        public RemoteCallQueue RemoteCallQueue { get;private set; }
+
+        public SocketClientMain(string ip, int prot,int second) {
+            RemoteCallQueue = new RemoteCallQueue(second);
             unityCon = new UnityInIt();
             Error += onError;
             Closed += onClose;
             RemoteEndpoint = new IPEndPoint(IPAddress.Parse(ip), prot);
             Initialize(new MyReceiveFilter(), onReceived);
 
-            
-
             ConnectionInit().Wait();
-
-
         }
-        private async Task ConnectionInit() {
+        /// <summary>
+        /// 是否正在尝试重新连接
+        /// </summary>
+        bool TryreConnect = false;
+
+        /// <summary>
+        /// 是否为递归重试
+        /// </summary>
+        /// <param name="tryreConnect"></param>
+        /// <returns></returns>
+        private async Task ConnectionInit(bool tryreConnect=false) {
+            if (IsConnected||(TryreConnect&& !tryreConnect))
+            {
+                return;
+            }
+
             await Task.Yield();
             var resl = ConnectAsync(RemoteEndpoint).Result;
             if (resl)
             {
                 Console.WriteLine("连接成功");
+                TryreConnect = false;
             }
             else
             {
-                while (true)
+                TryreConnect = true;
+                Console.WriteLine("连接服务器失败 5秒后重连");
+                for (int i = 0; i < 10; i++)
                 {
-                    Console.WriteLine("连接失败 5秒后重连");
-                    await Task.Delay(50000);
-                    ConnectionInit().Wait();
+                    await Task.Delay(500);
+                    Console.Write(".");
                 }
+                Console.WriteLine("");
+                    
+                ConnectionInit(true).Wait();
             }
         }
 
@@ -69,11 +88,24 @@ namespace SuperSocketClient
         /// <param name="stringPackageInfo"></param>
         private  void onReceived(RequestBaseInfo stringPackageInfo)
         {
-            var info = JsonConvert.DeserializeObject<RequestExecutiveInformation>(stringPackageInfo.bodyMeg);
-            if (info.ReturnValue != null && MethodIDs.TryGetValue(info.ID, out var action))
+            RequestExecutiveInformation info=null;
+            try
             {
-                action.Invoke(info.ReturnValue);
-                //得到执行结果
+                info = JsonConvert.DeserializeObject<RequestExecutiveInformation>(stringPackageInfo.bodyMeg);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("解析失败"+stringPackageInfo.bodyMeg);
+                return;
+            }
+          
+            if (info.ReturnValue != null && RemoteCallQueue.GetTaskIDAndSuccess(info.ID,info.ReturnValue))
+            {
+                //处理完成
+            }
+            else if (info.ReturnValue!=null)
+            {
+                Console.WriteLine($"收到一个意外的请求 它有结果但是没有找到该任务的信息 ID:{info.ID} FullName:{info.FullName} Return:{info.ReturnValue} 来自于:{RemoteEndpoint.ToString()}");
             }
             else
             {
@@ -90,9 +122,6 @@ namespace SuperSocketClient
                 var msg = JsonConvert.SerializeObject(info);
                 SendMessage(msg);
             }
-
-            //session.MethodIDs
-            Console.WriteLine("Server:" + stringPackageInfo.bodyMeg);
         }
         public void SendMessage(string message)
         {
