@@ -17,13 +17,13 @@ namespace ATest
         {
             SocketClientMain client = new SocketClientMain("127.0.0.1", 2012, 15);
             AOPContainer Container = new AOPContainer();
-            //client.AddServer<IADD, ADD>();
+            client.AddServer<IADD, ADD>();
 
             while ("q"!= Console.ReadLine())
             {
                 try
                 {
-                    Console.WriteLine(Container.GetServices<IADD>(client).GetRequestInfo());
+                    //Console.WriteLine(Container.GetServices<IADD>(client).GetRequestInfo());
                 }
                 catch (Exception)
                 {

@@ -17,34 +17,9 @@ namespace SuperSocketRRPCClient
         /// <summary>
         /// 容器对象
         /// </summary>
-        public UnityInIt unityCon { get; private set; }
+        public UnityInIt<SocketClientMain, RequestExecutiveInformation, RequestBaseInfo> unityCon { get; private set; }
 
         SocketClientMain socket { get; set; }
-
-        #region 反射设置值的对象列表
-
-        /// <summary>
-        ///  BaseProvideServices FulleName 
-        /// </summary>
-        string BaseProvideServicesFullName { get; set; }
-
-        /// <summary>
-        /// Socket PropertyInfo
-        /// </summary>
-        PropertyInfo socketPropertyInfo { get; set; }
-
-        /// <summary>
-        /// info PropertyInfo
-        /// </summary>
-        PropertyInfo infoPropertyInfo { get; set; }
-
-        /// <summary>
-        /// requestInfo PropertyInfo
-        /// </summary>
-        PropertyInfo requestInfoPropertyInfo { get; set; }
-
-        #endregion
-
 
         /// <summary>
         /// 请求监听类
@@ -53,11 +28,11 @@ namespace SuperSocketRRPCClient
         public MonitorReceived(SocketClientMain socket) {
             this.socket = socket;
             Type baseProvideServicesType = typeof(BaseProvideServices);
-            BaseProvideServicesFullName = baseProvideServicesType.FullName;
-            unityCon = new UnityInIt(BaseProvideServicesFullName);
-            socketPropertyInfo = baseProvideServicesType.GetProperty("Socket");
-            infoPropertyInfo = baseProvideServicesType.GetProperty("Info");
-            requestInfoPropertyInfo = baseProvideServicesType.GetProperty("RequestInfo");
+            unityCon = new UnityInIt<SocketClientMain, RequestExecutiveInformation, RequestBaseInfo>(
+                baseProvideServicesType.FullName,
+                baseProvideServicesType.GetProperty("Socket"), 
+                baseProvideServicesType.GetProperty("Info"),
+                baseProvideServicesType.GetProperty("RequestInfo"));
         }
 
 
@@ -112,14 +87,8 @@ namespace SuperSocketRRPCClient
         void ImplementFunc(RequestExecutiveInformation info, RequestBaseInfo requestInfo)
         {
             //接收RPC的请求
-            if (unityCon.GetService(info.FullName, out object executionObj, out var iServerType, out bool isMatchingFullName))
+            if (unityCon.GetService(info.FullName, socket, info,requestInfo, out object executionObj, out var iServerType))
             {
-                if (isMatchingFullName)
-                {
-                    socketPropertyInfo.SetValue(executionObj, socket);
-                    infoPropertyInfo.SetValue(executionObj, info);
-                    requestInfoPropertyInfo.SetValue(executionObj, requestInfo);
-                }
 
                 var methodType = iServerType.GetMethod(info.MethodName);
                 List<object> paraList = new List<object>();

@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Ming</Company>
     <Authors>Ming</Authors>
-    <Description>分离接收信息和异常重试模块 新增注释 新增注入服务的获取基础信息方法</Description>
-    <Version>1.0.3</Version>
+    <Description>修改属性注入方式为unity</Description>
+    <Version>1.0.5</Version>
     <PackageReleaseNotes>SuperSocket封装的双向RPC通讯组件很简陋 客户端</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -14,7 +14,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SuperSocket.ClientEngine" Version="0.10.0" />
     <PackageReference Include="SuperSocket.ProtoBase" Version="1.7.0.17" />
-    <PackageReference Include="SuperSocketRRPCUnity" Version="1.0.2" />
+    <PackageReference Include="SuperSocketRRPCUnity" Version="1.0.4" />
   </ItemGroup>
 
 </Project>
