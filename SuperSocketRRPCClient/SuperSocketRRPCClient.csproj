@@ -4,7 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Ming</Company>
     <Authors>Ming</Authors>
-    <Description>SuperSocket封装的双向RPC通讯组件很简陋 客户端</Description>
+    <Description>新增任务调度中心</Description>
+    <Version>1.0.1</Version>
+    <PackageReleaseNotes>SuperSocket封装的双向RPC通讯组件很简陋 客户端</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

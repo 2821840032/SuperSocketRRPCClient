@@ -31,6 +31,7 @@ namespace SuperSocketRRPCClient
         /// </summary>
         public List<string> Arguments { get; set; }
 
+
         /// <summary>
         /// RPC调用结果 json
         /// </summary>

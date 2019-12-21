@@ -3,8 +3,10 @@ using RPCService;
 using SuperSocketAOPClientContainer;
 using SuperSocketRRPCClient;
 using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-
+using System.Linq;
 namespace ATest
 {
     class Program
@@ -28,26 +30,24 @@ namespace ATest
                 Console.WriteLine("运行时间"+span.Milliseconds);
             }
         }
-       async static Task ADDTest(SocketClientMain client, AOPContainer Container) {
-            await Task.Yield();
+        static void ADDTest(SocketClientMain client, AOPContainer Container) {
             Parallel.For(0, 5000, (id) =>
             {
-                ActionAdd(client, Container).Wait();
+                ActionAdd(client, Container);
                 Console.WriteLine($"执行程度{id}/50000");
             });
             Console.WriteLine("完成");
             runB = DateTime.Now;
         }
         static int A = 0;
-        async static Task ActionAdd(SocketClientMain client, AOPContainer Container)
+        static void ActionAdd(SocketClientMain client, AOPContainer Container)
         {
-            await Task.Yield();
             var Ra1 = new Random().Next(10000);
             var Ra2 = new Random().Next(10000);
             try
             {
                 var result = Container.GetServices<IADD>(client).ADD(Ra1, Ra2);
-                if (result!=(Ra1+Ra2))
+                if (result != (Ra1 + Ra2))
                 {
                     Console.WriteLine("出现了一个异常的");
                     A++;

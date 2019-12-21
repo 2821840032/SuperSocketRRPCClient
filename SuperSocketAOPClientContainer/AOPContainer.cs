@@ -47,18 +47,11 @@ namespace SuperSocketAOPClientContainer
                 MethodName = invocation.Method.Name,
                 Arguments = invocation.Arguments.Select(d => JsonConvert.SerializeObject(d)).ToList()
             };
+            //在这里不能使用task  会极大的阻塞线程的执行 原因未知
+            var result = session.RemoteCallQueue.AddTaskQueue(information, session);
+            session.RemoteCallQueue.RemoteExecutionFunc(result);
 
-            var result = session.RemoteCallQueue.AddTaskQueue(information.ID,information);
-            var msg = JsonConvert.SerializeObject(information);
-            try
-            {
-                session.SendMessage(msg);
-            }
-            catch (Exception e)
-            {
-                result.ProcessingFuncInvoke(ReceiveMessageState.Error, e.Message);
-            }
-            
+
             result.WaitHandle.WaitOne();
             switch (result.State)
             {

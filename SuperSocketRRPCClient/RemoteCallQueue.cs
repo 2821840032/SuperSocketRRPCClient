@@ -6,6 +6,8 @@ using System.Timers;
 using SuperSocketRRPCClient.Entity;
 using System.Threading;
 using System.Collections.Concurrent;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace SuperSocketRRPCClient
 {
@@ -19,26 +21,33 @@ namespace SuperSocketRRPCClient
         /// </summary>
         public int second { get; private set; }
 
+        /// <summary>
+        /// 最大重试次数
+        /// </summary>
+        public int MaxRetryCount { get; private set; }
+
         private System.Timers.Timer HealthExaminationThread;
 
         private System.Timers.Timer ScheduledCleaningThread;
 
         /// <summary>
-        /// 执行事件中的方法
+        /// 任务列表
         /// </summary>
         public ConcurrentDictionary<Guid, RemoteCallEntrity> MethodCallQueues
         {
             get;private set;
         }
+
         /// <summary>
         /// 开启队列管理
         /// </summary>
-        /// <param name="second">超时时间</param>
-        public RemoteCallQueue(int second=10)
+        /// <param name="second">任务超时时间</param>
+        /// <param name="maxRetryCount">最大重试次数</param>
+        public RemoteCallQueue(int second=10,int maxRetryCount=3)
         {
             this.second = second;
             MethodCallQueues = new ConcurrentDictionary<Guid, RemoteCallEntrity>();
-
+            MaxRetryCount = maxRetryCount;
             Thread thread = new Thread(TimerInit);
             thread.Start();
 
@@ -62,11 +71,40 @@ namespace SuperSocketRRPCClient
         /// <summary>
         /// 添加一个任务到队列
         /// </summary>
-        public RemoteCallEntrity AddTaskQueue(Guid id, RequestExecutiveInformation info) {
-            var result = new RemoteCallEntrity(id, info, ReceiveMessageState.Wait, DateTime.Now.AddSeconds(second));
-            MethodCallQueues.TryAdd(id,result);
+        /// <param name="info">信息</param>
+        /// <param name="socket">远程连接</param>
+        /// <returns></returns>
+        public RemoteCallEntrity AddTaskQueue(RequestExecutiveInformation info,SocketClientMain socket) {
+            var result = new RemoteCallEntrity(info.ID, info, ReceiveMessageState.Wait, DateTime.Now.AddSeconds(second),socket);
+            MethodCallQueues.TryAdd(info.ID, result);
             return result;
             
+        }
+        /// <summary>
+        /// 进行远程调用
+        /// </summary>
+        /// <param name="info">通讯的信息</param>
+        public async Task RemoteExecutionFuncAsync(RemoteCallEntrity info) {
+            await Task.Yield();
+            RemoteExecutionFunc(info);
+        }
+
+        /// <summary>
+        /// 进行远程调用
+        /// </summary>
+        /// <param name="info">通讯的信息</param>
+        public  void RemoteExecutionFunc(RemoteCallEntrity info)
+        {
+            var msg = JsonConvert.SerializeObject(info.TaskInfo);
+            try
+            {
+                info.ClientSocket.SendMessage(msg);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("通讯出现异常" + e.Message);
+                info.ProcessingFuncInvoke(ReceiveMessageState.Error, e.Message);
+            }
         }
 
         /// <summary>
@@ -74,10 +112,20 @@ namespace SuperSocketRRPCClient
         /// </summary>
         private void healthExaminationFunc(object source, ElapsedEventArgs e)
         {
-                foreach (var item in MethodCallQueues.Where(d => d.Value != null && DateTime.Now > d.Value.ExpirationTime && d.Value.State == ReceiveMessageState.Wait).ToList())
+            foreach (var item in MethodCallQueues.Where(d => d.Value != null && DateTime.Now > d.Value.ExpirationTime && d.Value.State == ReceiveMessageState.Wait).ToList())
+            {
+                if (item.Value.RetryCount>MaxRetryCount)
+                {
+                    item.Value.RetryCount++;
+                    //重发
+                    RemoteExecutionFuncAsync(item.Value);
+                }
+                else
                 {
                     item.Value.ProcessingFuncInvoke(ReceiveMessageState.Overtime, $"Timeout to {second} Second");
                 }
+
+            }
         }
         /// <summary>
         /// 定时清理函数

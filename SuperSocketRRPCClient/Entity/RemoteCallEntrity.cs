@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperSocket.ClientEngine;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -16,6 +17,12 @@ namespace SuperSocketRRPCClient.Entity
         /// </summary>
         public Guid ID { get; set; }
 
+
+        /// <summary>
+        /// 通讯对象
+        /// </summary>
+        public SocketClientMain ClientSocket { get; set; }
+
         /// <summary>
         /// 任务状态
         /// </summary>
@@ -31,6 +38,12 @@ namespace SuperSocketRRPCClient.Entity
         /// </summary>
         public string ReturnValue { get; set; }
 
+
+        /// <summary>
+        /// 重试次数
+        /// </summary>
+        public int RetryCount { get; set; } = 0;
+
         /// <summary>
         /// 任务信息
         /// </summary>
@@ -41,11 +54,12 @@ namespace SuperSocketRRPCClient.Entity
         /// </summary>
         public EventWaitHandle WaitHandle { get; set; }
 
-        public RemoteCallEntrity(Guid id, RequestExecutiveInformation taskInfo, ReceiveMessageState state, DateTime expirationTime) {
+        public RemoteCallEntrity(Guid id, RequestExecutiveInformation taskInfo, ReceiveMessageState state, DateTime expirationTime,SocketClientMain socket) {
             this.ID = id;
             this.TaskInfo = taskInfo;
             this.State = state;
             this.ExpirationTime = expirationTime;
+            this.ClientSocket = socket;
 
             WaitHandle = new AutoResetEvent(false);
         }
