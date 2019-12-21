@@ -8,20 +8,36 @@ using System.Threading.Tasks;
 namespace SuperSocketRRPCClient
 {
     
+    /// <summary>
+    /// 二进制请求解析器
+    /// </summary>
     public class MyReceiveFilter : SuperSocket.ProtoBase.FixedHeaderReceiveFilter<RequestBaseInfo>
     {
+        /// <summary>
+        /// 二进制解析器
+        /// </summary>
         public MyReceiveFilter()
        : base(4)
         {
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bufferStream"></param>
+        /// <returns></returns>
         public override RequestBaseInfo ResolvePackage(IBufferStream bufferStream)
         {
             var last = bufferStream.Buffers.Last();
             var body = last.Array.Skip(last.Offset).Take(last.Count).ToArray();
             return new RequestBaseInfo(body);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bufferStream"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
 
         protected override int GetBodyLengthFromHeader(IBufferStream bufferStream, int length)
         {

@@ -43,7 +43,7 @@ namespace SuperSocketRRPCClient
         /// </summary>
         /// <param name="second">任务超时时间</param>
         /// <param name="maxRetryCount">最大重试次数</param>
-        public RemoteCallQueue(int second=10,int maxRetryCount=3)
+        public RemoteCallQueue(int second,int maxRetryCount)
         {
             this.second = second;
             MethodCallQueues = new ConcurrentDictionary<Guid, RemoteCallEntrity>();
@@ -114,9 +114,10 @@ namespace SuperSocketRRPCClient
         {
             foreach (var item in MethodCallQueues.Where(d => d.Value != null && DateTime.Now > d.Value.ExpirationTime && d.Value.State == ReceiveMessageState.Wait).ToList())
             {
-                if (item.Value.RetryCount>MaxRetryCount)
+                if (item.Value.RetryCount<MaxRetryCount)
                 {
                     item.Value.RetryCount++;
+                    item.Value.ExpirationTime = DateTime.Now.AddSeconds(second);
                     //重发
                     RemoteExecutionFuncAsync(item.Value);
                 }
@@ -142,7 +143,7 @@ namespace SuperSocketRRPCClient
         /// 根据任务ID获取任务信息并修改状态为以完成
         /// </summary>
         /// <param name="id">任务ID</param>
-        /// <param name="action">内容</param>
+        /// <param name="rpcResule">内容</param>
         /// <returns>true 找到并修改信息 false未找到</returns>
         public bool GetTaskIDAndSuccess(Guid id,string rpcResule) {
             if (MethodCallQueues.TryGetValue(id, out var value))

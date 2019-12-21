@@ -54,6 +54,14 @@ namespace SuperSocketRRPCClient.Entity
         /// </summary>
         public EventWaitHandle WaitHandle { get; set; }
 
+        /// <summary>
+        /// 任务对象
+        /// </summary>
+        /// <param name="id">任务ID</param>
+        /// <param name="taskInfo">传输对象</param>
+        /// <param name="state">状态</param>
+        /// <param name="expirationTime">超时时间</param>
+        /// <param name="socket">连接对象</param>
         public RemoteCallEntrity(Guid id, RequestExecutiveInformation taskInfo, ReceiveMessageState state, DateTime expirationTime,SocketClientMain socket) {
             this.ID = id;
             this.TaskInfo = taskInfo;

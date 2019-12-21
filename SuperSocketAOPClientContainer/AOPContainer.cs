@@ -12,11 +12,18 @@ using SuperSocketRRPCClient.Entity;
 namespace SuperSocketAOPClientContainer
 {
 
+    /// <summary>
+    /// AOP 容器对象
+    /// </summary>
     public class AOPContainer
     {
          
       
         ProxyGenerator generator { get; set; }
+        
+        /// <summary>
+        /// 容器对象
+        /// </summary>
         public AOPContainer()
         {
             generator = new ProxyGenerator();
@@ -37,9 +44,14 @@ namespace SuperSocketAOPClientContainer
             }));
         }
 
+        /// <summary>
+        /// 调用实现函数
+        /// </summary>
+        /// <param name="invocation">信息</param>
+        /// <param name="session">连接对象</param>
+        /// <returns></returns>
         public object ImplementFunc(IInvocation invocation, SocketClientMain session)
         {
-            //
             RequestExecutiveInformation information = new RequestExecutiveInformation()
             {
                 FullName = invocation.Method.DeclaringType.FullName,
