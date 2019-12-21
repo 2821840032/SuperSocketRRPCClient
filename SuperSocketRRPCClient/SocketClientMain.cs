@@ -109,20 +109,32 @@ namespace SuperSocketRRPCClient
             }
             else
             {
-                //接收RPC的请求
-                var type = unityCon.GetService(info.FullName, out object executionObj);
-                var methodType = type.GetMethod(info.MethodName);
-                List<object> paraList = new List<object>();
-                for (int i = 0; i < info.Arguments.Count; i++)
-                {
-                    var paras = methodType.GetParameters();
-                    paraList.Add(JsonConvert.DeserializeObject(info.Arguments[i], paras[i].ParameterType));
-                }
-                info.ReturnValue = JsonConvert.SerializeObject(methodType.Invoke(executionObj, paraList.ToArray()));
-                var msg = JsonConvert.SerializeObject(info);
-                SendMessage(msg);
+                ImplementFunc(info, stringPackageInfo);
             }
         }
+
+        /// <summary>
+        /// 执行RPC的调用
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="requestInfo"></param>
+        /// <returns></returns>
+         void ImplementFunc(RequestExecutiveInformation info,RequestBaseInfo requestInfo)
+        {
+            //接收RPC的请求
+            var type = unityCon.GetService(info.FullName, out object executionObj);
+            var methodType = type.GetMethod(info.MethodName);
+            List<object> paraList = new List<object>();
+            for (int i = 0; i < info.Arguments.Count; i++)
+            {
+                var paras = methodType.GetParameters();
+                paraList.Add(JsonConvert.DeserializeObject(info.Arguments[i], paras[i].ParameterType));
+            }
+            info.ReturnValue = JsonConvert.SerializeObject(methodType.Invoke(executionObj, paraList.ToArray()));
+            var msg = JsonConvert.SerializeObject(info);
+            SendMessage(msg);
+        }
+
         public void SendMessage(string message)
         {
             var dataBody = Encoding.UTF8.GetBytes(message);
