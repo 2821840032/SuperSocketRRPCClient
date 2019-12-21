@@ -63,9 +63,10 @@ namespace SuperSocketRRPCClient
         /// <param name="message"></param>
         public void SendMessage(string message)
         {
-            if (IsConnected)
+            if (!IsConnected)
             {
                 Console.WriteLine("发送请求失败 当前状态未连接");
+                return;
             }
             var dataBody = Encoding.UTF8.GetBytes(message);
 
