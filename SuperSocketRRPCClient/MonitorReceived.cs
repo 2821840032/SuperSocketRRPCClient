@@ -96,9 +96,9 @@ namespace SuperSocketRRPCClient
 
                 var methodType = iServerType.GetMethod(info.MethodName);
                 List<object> paraList = new List<object>();
+                var paras = methodType.GetParameters();
                 for (int i = 0; i < info.Arguments.Count; i++)
                 {
-                    var paras = methodType.GetParameters();
                     paraList.Add(JsonConvert.DeserializeObject(info.Arguments[i], paras[i].ParameterType));
                 }
                 info.ReturnValue = JsonConvert.SerializeObject(methodType.Invoke(executionObj, paraList.ToArray()));

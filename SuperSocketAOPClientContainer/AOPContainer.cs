@@ -29,7 +29,19 @@ namespace SuperSocketAOPClientContainer
             generator = new ProxyGenerator();
            
         }
-     
+
+        /// <summary>
+        /// 获取远程类
+        /// </summary>
+        /// <param name="session">需要通讯的对象</param>
+        /// <param name="serverType">需要实例化的类型</param>
+        /// <returns></returns>
+        public object GetServices(SocketClientMain session, Type serverType)
+        {
+            return generator.CreateInterfaceProxyWithoutTarget(serverType, new AOPRPCInterceptor((invocation) => {
+                return ImplementFunc(invocation, session);
+            }));
+        }
 
         /// <summary>
         /// 获取远程类
