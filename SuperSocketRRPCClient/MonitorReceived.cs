@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Unity;
 
 namespace SuperSocketRRPCClient
 {
@@ -19,6 +20,8 @@ namespace SuperSocketRRPCClient
         /// </summary>
         public UnityInIt<SocketClientMain, RequestExecutiveInformation, RequestBaseInfo> unityCon { get; private set; }
 
+
+
         SocketClientMain socket { get; set; }
 
         /// <summary>
@@ -32,7 +35,8 @@ namespace SuperSocketRRPCClient
                 baseProvideServicesType.FullName,
                 baseProvideServicesType.GetProperty("Socket"), 
                 baseProvideServicesType.GetProperty("Info"),
-                baseProvideServicesType.GetProperty("RequestInfo"));
+                baseProvideServicesType.GetProperty("RequestInfo"),
+                baseProvideServicesType.GetProperty("Container"));
         }
 
 
@@ -87,7 +91,7 @@ namespace SuperSocketRRPCClient
         void ImplementFunc(RequestExecutiveInformation info, RequestBaseInfo requestInfo)
         {
             //接收RPC的请求
-            if (unityCon.GetService(info.FullName, socket, info,requestInfo, out object executionObj, out var iServerType))
+            if (unityCon.GetService(info.FullName, socket, info,requestInfo, socket.UnityContainer, out object executionObj, out var iServerType))
             {
 
                 var methodType = iServerType.GetMethod(info.MethodName);

@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Unity.Abstractions" Version="5.11.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\supersocketTest\supersocketTest\IRPCService\IRPCService.csproj" />
     <ProjectReference Include="..\..\..\supersocketTest\supersocketTest\RPCService\RPCService.csproj" />
     <ProjectReference Include="..\SuperSocketAOPClientContainer\SuperSocketAOPClientContainer.csproj" />

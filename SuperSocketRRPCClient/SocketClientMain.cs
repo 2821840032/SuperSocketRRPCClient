@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 
 namespace SuperSocketRRPCClient
 {
@@ -16,7 +17,12 @@ namespace SuperSocketRRPCClient
     /// </summary>
    public class SocketClientMain: EasyClient
     {
-      
+        /// <summary>
+        /// unity 容器对象 一般用来存储如 数据库连接对象 工具之类的单例或者工厂
+        /// 在RPCsetup中全局唯一 且能在服务中获取到它
+        /// </summary>
+        public IUnityContainer UnityContainer { get; set; }
+
         /// <summary>
         /// 接收请求处理类
         /// </summary>
@@ -39,13 +45,16 @@ namespace SuperSocketRRPCClient
         /// <param name="ip">远程地址</param>
         /// <param name="prot">端口</param>
         /// <param name="maxRetryCount">最大超时后重试次数</param>
+        /// <param name="acion">初始化注入的对象</param>
         /// <param name="second">超时时间</param>
         /// <param name="immediateConnection">是否为立即连接</param>
-        public SocketClientMain(string ip, int prot,int second=10,int maxRetryCount=3, bool immediateConnection=true) {
+        public SocketClientMain(string ip, int prot, Action<IUnityContainer> acion=null,int second=10,int maxRetryCount=3, bool immediateConnection=true) {
             RemoteCallQueue = new RemoteCallQueue(second, maxRetryCount);
+            UnityContainer = new UnityContainer();
+            acion?.Invoke(UnityContainer);
 
             monitorReceived = new MonitorReceived(this);
-
+            
             retryMechanism = new RetryMechanism(this);
 
             Error += retryMechanism.onError;

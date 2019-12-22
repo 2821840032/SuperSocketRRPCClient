@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Unity;
 
 namespace SuperSocketRRPCClient.Entity
 {
@@ -24,5 +25,9 @@ namespace SuperSocketRRPCClient.Entity
         /// </summary>
         public RequestBaseInfo RequestInfo { get; set; }
 
+        /// <summary>
+        /// 容器对象
+        /// </summary>
+        public IUnityContainer Container { get; internal set; }
     }
 }
