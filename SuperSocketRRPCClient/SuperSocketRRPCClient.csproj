@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Ming</Company>
     <Authors>Ming</Authors>
-    <Description>修改1.0.7版本的小BUG</Description>
-    <Version>1.0.8</Version>
+    <Description>添加日志管理</Description>
+    <Version>1.1.0</Version>
     <PackageReleaseNotes>SuperSocket封装的双向RPC通讯组件很简陋 客户端</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

@@ -74,7 +74,7 @@ namespace SuperSocketRRPCClient
         {
             if (!IsConnected)
             {
-                Console.WriteLine("发送请求失败 当前状态未连接");
+                this.Log("发送请求失败 当前状态未连接 消息内容"+message, LoggerType.Error);
                 return;
             }
             var dataBody = Encoding.UTF8.GetBytes(message);

@@ -65,7 +65,7 @@ namespace SuperSocketRRPCClient
             }
             catch (Exception e)
             {
-                Console.WriteLine("解析失败" + stringPackageInfo.bodyMeg+"。原因："+e.Message);
+                socket.Log("解析失败" + stringPackageInfo.bodyMeg+"。原因："+e.Message, LoggerType.Error);
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace SuperSocketRRPCClient
             }
             else if (info.ReturnValue != null)
             {
-                Console.WriteLine($"收到一个意外的请求 它有结果但是没有找到该任务的信息 ID:{info.ID} FullName:{info.FullName} Return:{info.ReturnValue} 来自于:{socket.RemoteEndpoint.ToString()}");
+                socket.Log($"收到一个意外的请求 它有结果但是没有找到该任务的信息 ID:{info.ID} FullName:{info.FullName} Return:{info.ReturnValue} 来自于:{socket.RemoteEndpoint.ToString()}", LoggerType.Error);
             }
             else
             {
@@ -106,7 +106,7 @@ namespace SuperSocketRRPCClient
                 socket.SendMessage(msg);
             }
             else {
-                Console.WriteLine("收到一个未知的请求"+info.FullName);
+                socket.Log("收到一个未知的请求" +info.FullName, LoggerType.Error);
             }
 
           

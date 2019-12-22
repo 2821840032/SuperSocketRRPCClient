@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Ming</Authors>
-    <Description>修改1.0.7版本的小BUG</Description>
-    <Version>1.0.8</Version>
+    <Description>添加日志</Description>
+    <Version>1.1.0</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 

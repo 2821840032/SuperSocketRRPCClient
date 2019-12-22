@@ -102,7 +102,7 @@ namespace SuperSocketRRPCClient
             }
             catch (Exception e)
             {
-                Console.WriteLine("通讯出现异常" + e.Message);
+                info.ClientSocket.Log("通讯出现异常 请求没有没发送成功" + e.Message, LoggerType.Error);
                 info.ProcessingFuncInvoke(ReceiveMessageState.Error, e.Message);
             }
         }
@@ -154,7 +154,7 @@ namespace SuperSocketRRPCClient
                     return true;
                 }
                 else {
-                    Console.WriteLine($"任务状态已经被更改过一次 现在它又收到了一个结果 ID:{value.ID} Result:{rpcResule} State:{value.State}");
+                    value.ClientSocket.Log($"任务状态已经被更改过一次 现在它又收到了一个结果 ID:{value.ID} Result:{rpcResule} State:{value.State}", LoggerType.Error);
                     return true;
                 }
              

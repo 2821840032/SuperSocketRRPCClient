@@ -41,13 +41,13 @@ namespace SuperSocketRRPCClient
             var resl = socket.ConnectAsync(socket.RemoteEndpoint).Result;
             if (resl)
             {
-                Console.WriteLine("连接成功");
+                socket.Log("连接成功");
                 TryreConnect = false;
             }
             else
             {
                 TryreConnect = true;
-                Console.WriteLine("连接服务器失败 5秒后重连");
+                socket.Log("连接服务器失败 5秒后重连", LoggerType.Error);
                 for (int i = 0; i < 10; i++)
                 {
                     await Task.Delay(500);
@@ -66,12 +66,12 @@ namespace SuperSocketRRPCClient
         {
             if (socket.IsConnected)
             {
-                Console.WriteLine("已进行连接");
+                socket.Log("连接已完成，取消本次请求", LoggerType.Warning);
                 return;
             }
             if (TryreConnect)
             {
-                Console.WriteLine("已有线程在进行重试");
+                socket.Log("已有线程在进行重试", LoggerType.Warning);
                 return;
             }
             ConnectionInit();
@@ -85,7 +85,7 @@ namespace SuperSocketRRPCClient
         /// <param name="e"></param>
         public void onClose(object sender, EventArgs e)
         {
-            Console.WriteLine("连接关闭 尝试重新连接");
+            socket.Log("连接关闭 尝试重新连接", LoggerType.Warning);
             ConnectionInit();
         }
         
@@ -96,8 +96,8 @@ namespace SuperSocketRRPCClient
         /// <param name="errorEvent"></param>
         public void onError(object o, ErrorEventArgs errorEvent)
         {
-            Console.WriteLine("连接异常：" + errorEvent.Exception.Message);
-            Console.WriteLine("尝试重新连接");
+            socket.Log("连接异常：" + errorEvent.Exception.Message, LoggerType.Error);
+            socket.Log("尝试重新连接", LoggerType.Warning);
             ConnectionInit();
         }
 
