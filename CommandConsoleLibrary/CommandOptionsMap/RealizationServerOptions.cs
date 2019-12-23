@@ -28,49 +28,58 @@ namespace CommandConsoleLibrary.CommandOptionsMap
 
         public int Run(List<Type> commandExecutionRPClist, AOPContainer aOPContainer,SocketClientMain client)
         {
-            MethodInfo objMethod;
-            var objType = commandExecutionRPClist.FirstOrDefault(d => d.FullName.Equals(fullname));
-            if (objType == null)
-            {
-                Console.WriteLine($"没有找到{fullname}的类型");
-                return 1;
-            }
-
-
-            objMethod = objType.GetMethods().FirstOrDefault(d => d.Name.Equals(name));
-            if (objMethod == null)
-            {
-                Console.WriteLine($"没有找到{name}函数");
-                return 1;
-            }
-
-            var paras = objMethod.GetParameters();
-            if (para.Count()!= paras.Count())
-            {
-                Console.WriteLine($"参数数量不对 应为{paras.Count()}");
-                return 1;
-            }
-            List<object> paraList = new List<object>();
-
-            var paraToList = para.ToList();
             try
             {
-                for (int i = 0; i < paraToList.Count(); i++)
+                MethodInfo objMethod;
+                var objType = commandExecutionRPClist.FirstOrDefault(d => d.FullName.Equals(fullname));
+                if (objType == null)
                 {
-                    paraList.Add(JsonConvert.DeserializeObject(paraToList[i], paras[i].ParameterType));
+                    Console.WriteLine($"没有找到{fullname}的类型");
+                    return 1;
                 }
+
+
+                objMethod = objType.GetMethods().FirstOrDefault(d => d.Name.Equals(name));
+                if (objMethod == null)
+                {
+                    Console.WriteLine($"没有找到{name}函数");
+                    return 1;
+                }
+
+                var paras = objMethod.GetParameters();
+                if (para.Count() != paras.Count())
+                {
+                    Console.WriteLine($"参数数量不对 应为{paras.Count()}");
+                    return 1;
+                }
+                List<object> paraList = new List<object>();
+
+                var paraToList = para.ToList();
+                try
+                {
+                    for (int i = 0; i < paraToList.Count(); i++)
+                    {
+                        paraList.Add(JsonConvert.DeserializeObject(paraToList[i], paras[i].ParameterType));
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("格式化参数失败" + e.Message);
+                }
+
+                var obj = aOPContainer.GetServices(client, objType);
+
+                var result = objMethod.Invoke(obj, paraList.ToArray());
+
+                Console.WriteLine("调用完成:" + JsonConvert.SerializeObject(result));
+                return 0;
             }
             catch (Exception e)
             {
-                Console.WriteLine("格式化参数失败"+e.Message);
+                Console.WriteLine("IMP ERRER" +e.Message);
+                return 0;
             }
-
-            var obj = aOPContainer.GetServices(client, objType);
-
-            var result =  objMethod.Invoke(obj, paraList.ToArray());
-
-            Console.WriteLine("调用完成:"+JsonConvert.SerializeObject(result));
-            return 0;
+       
         }
     }
 }
