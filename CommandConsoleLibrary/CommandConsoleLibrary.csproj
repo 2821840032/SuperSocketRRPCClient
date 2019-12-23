@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Ming</Authors>
+    <Description>新增对日志的支持</Description>
+    <Version>1.0.1</Version>
+    <PackageId>SuperSocketRRPCClientCommandConsole</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SuperSocketAOPClientContainer\SuperSocketAOPClientContainer.csproj" />
+  </ItemGroup>
+
+</Project>
