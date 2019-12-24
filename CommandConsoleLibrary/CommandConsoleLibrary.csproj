@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Ming</Authors>
-    <Description>新增对日志的支持</Description>
-    <Version>1.0.1</Version>
+    <Description>修复IMP命令执行抛异常的问题</Description>
+    <Version>1.1.1</Version>
     <PackageId>SuperSocketRRPCClientCommandConsole</PackageId>
   </PropertyGroup>
 
