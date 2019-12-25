@@ -26,7 +26,9 @@ namespace ATest
             {
                 try
                 {
-                    var result = Container.GetServices<IADD>(client,Guid.Parse(ll)).GetRequestInfo(Guid.NewGuid());
+
+                    var result = Container.GetServices<IADD>(client).AsyncMM();
+                    //var result = Container.GetServices<IADD>(client,Guid.Parse(ll)).GetRequestInfo(Guid.NewGuid());
                     ll = Console.ReadLine();
 
                 }

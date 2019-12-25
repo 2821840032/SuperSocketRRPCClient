@@ -94,6 +94,7 @@ namespace SuperSocketAOPClientContainer
                 filterType = value.Invoke();
                 if (filterType.IsReturn)
                 {
+                    result.State = ReceiveMessageState.Success;
                     return filterType.Result;
                 }
             }
