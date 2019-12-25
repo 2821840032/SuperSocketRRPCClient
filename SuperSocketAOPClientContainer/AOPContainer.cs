@@ -74,6 +74,7 @@ namespace SuperSocketAOPClientContainer
         {
             RequestExecutiveInformation information = new RequestExecutiveInformation()
             {
+                AssemblyFullName = invocation.Method.DeclaringType.Assembly.FullName,
                 FullName = invocation.Method.DeclaringType.FullName,
                 ID = Guid.NewGuid(),
                 MethodName = invocation.Method.Name,

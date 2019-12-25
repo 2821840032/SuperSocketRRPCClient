@@ -25,20 +25,21 @@ namespace ATest
             {
                 try
                 {
-                    //Guid IID = Guid.NewGuid();
-                    //Parallel.For(0, 1, (id) =>
-                    //{
-                    //   var result = Container.GetServices<IADD>(client).GetRequestInfo(IID);
-                    //    if (result != IID)
-                    //    {
-                    //        Console.WriteLine("错误！！！");
-                    //    }
-                    //    else {
-                    //        Console.WriteLine(IID);
-                    //    }
-                       
-                    //});
-                   
+                    Guid IID = Guid.NewGuid();
+                    Parallel.For(0, 1, (id) =>
+                    {
+                        var result = Container.GetServices<IADD>(client).GetRequestInfo(IID);
+                        if (result != IID)
+                        {
+                            Console.WriteLine("错误！！！");
+                        }
+                        else
+                        {
+                            Console.WriteLine(IID);
+                        }
+
+                    });
+
                 }
                 catch (Exception)
                 {

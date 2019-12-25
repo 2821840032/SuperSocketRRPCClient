@@ -17,6 +17,11 @@ namespace SuperSocketRRPCClient
         public Guid ID { get; set; }
 
         /// <summary>
+        /// Assembly 标识
+        /// </summary>
+        public string AssemblyFullName { get; set; }
+
+        /// <summary>
         /// FullName名称
         /// </summary>
         public string FullName { get; set; }
