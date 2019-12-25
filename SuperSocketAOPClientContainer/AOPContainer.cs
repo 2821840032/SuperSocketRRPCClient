@@ -25,16 +25,16 @@ namespace SuperSocketAOPClientContainer
         /// <summary>
         /// 转换跳过的类型
         /// </summary>
-        Dictionary<string,Type> TransformationSkipType;
+        public Dictionary<string, Func<AOPFilterEntity>> TransformationSkipType { get; set; }
         /// <summary>
         /// 容器对象
         /// </summary>
         public AOPContainer()
         {
             generator = new ProxyGenerator();
-            TransformationSkipType = new Dictionary<string, Type>();
-            TransformationSkipType.Add(typeof(void).FullName,typeof(void));
-
+            TransformationSkipType = new Dictionary<string, Func<AOPFilterEntity>>();
+            TransformationSkipType.Add(typeof(void).FullName,()=> { return new AOPFilterEntity() { FullName= typeof(void).FullName,IsReturn=false, IsReplaceResult=true, Result=null}; });
+            TransformationSkipType.Add(typeof(Task).FullName, () => { return new AOPFilterEntity { FullName = typeof(Task).FullName, IsReturn = true, IsReplaceResult=true, Result = Task.CompletedTask }; });
 
         }
 
@@ -83,9 +83,14 @@ namespace SuperSocketAOPClientContainer
             var result = session.RemoteCallQueue.AddTaskQueue(information, session);
             session.RemoteCallQueue.RemoteExecutionFunc(result);
 
+            AOPFilterEntity filterType=null;
             if (TransformationSkipType.TryGetValue(invocation.Method.ReturnType.FullName, out var value))
             {
-                return null;
+                filterType = value.Invoke();
+                if (filterType.IsReturn)
+                {
+                    return filterType.Result;
+                }
             }
             result.WaitHandle.WaitOne();
             switch (result.State)
@@ -93,9 +98,17 @@ namespace SuperSocketAOPClientContainer
                 case ReceiveMessageState.Wait:
                     throw new Exception("任务出现错误，目前正在等待状态，却通过了健康检查");
                 case ReceiveMessageState.Success:
+                    if (filterType != null&&filterType.IsReplaceResult)
+                    {
+                        return filterType.Result;
+                    }
+                    else {
+
+                        var obj = JsonConvert.DeserializeObject(result.ReturnValue, invocation.Method.ReturnType);
+                        return obj;
                    
-                     var obj = JsonConvert.DeserializeObject(result.ReturnValue, invocation.Method.ReturnType);
-                    return obj;
+                    }
+                   
                 case ReceiveMessageState.Overtime:
                     throw new Exception("任务超时：" + result.ReturnValue);
                 case ReceiveMessageState.Error:
