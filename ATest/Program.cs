@@ -17,33 +17,23 @@ namespace ATest
         {
             SocketClientMain client = new SocketClientMain("127.0.0.1",2012,(unity)=> {
                 unity.RegisterSingleton<IADD, ADD>();
-            },15);
+            },15,0);
             AOPContainer Container = new AOPContainer();
             client.AddServer<IADD, ADD>();
 
-            while ("q"!= Console.ReadLine())
+            string ll = Console.ReadLine();
+            while ("q"!= ll)
             {
                 try
                 {
-                    Guid IID = Guid.NewGuid();
-                    Parallel.For(0, 1, (id) =>
-                    {
-                        var result = Container.GetServices<IADD>(client).GetRequestInfo(IID);
-                        if (result != IID)
-                        {
-                            Console.WriteLine("错误！！！");
-                        }
-                        else
-                        {
-                            Console.WriteLine(IID);
-                        }
-
-                    });
+                    var result = Container.GetServices<IADD>(client,Guid.Parse(ll)).GetRequestInfo(Guid.NewGuid());
+                    ll = Console.ReadLine();
 
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    
+                    Console.WriteLine(e);
+                    ll = Console.ReadLine();
                 }
               
             }

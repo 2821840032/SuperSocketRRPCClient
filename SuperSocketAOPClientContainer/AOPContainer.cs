@@ -43,11 +43,12 @@ namespace SuperSocketAOPClientContainer
         /// </summary>
         /// <param name="session">需要通讯的对象</param>
         /// <param name="serverType">需要实例化的类型</param>
+        ///  <param name="RRPCSessionID">指定的Session完成任务而不是随机，若服务器有指定则会有限服务器指定的对象</param>
         /// <returns></returns>
-        public object GetServices(SocketClientMain session, Type serverType)
+        public object GetServices(SocketClientMain session, Type serverType, Guid? RRPCSessionID = null)
         {
             return generator.CreateInterfaceProxyWithoutTarget(serverType, new AOPRPCInterceptor((invocation) => {
-                return ImplementFunc(invocation, session);
+                return ImplementFunc(invocation, session, RRPCSessionID);
             }));
         }
 
@@ -56,11 +57,12 @@ namespace SuperSocketAOPClientContainer
         /// </summary>
         /// <typeparam name="T">对象</typeparam>
         /// <param name="session">需要通讯的对象</param>
+        /// <param name="RRPCSessionID">指定由谁来进行调用而不是随机</param>
         /// <returns></returns>
-        public T GetServices<T>(SocketClientMain session) where T:class
+        public T GetServices<T>(SocketClientMain session,Guid? RRPCSessionID = null) where T:class
         {
             return generator.CreateInterfaceProxyWithoutTarget<T>(new AOPRPCInterceptor((invcation)=> {
-               return ImplementFunc(invcation, session);
+               return ImplementFunc(invcation, session, RRPCSessionID);
             }));
         }
 
@@ -69,11 +71,13 @@ namespace SuperSocketAOPClientContainer
         /// </summary>
         /// <param name="invocation">信息</param>
         /// <param name="session">连接对象</param>
+        /// <param name="RRPCSessionID">指定由谁来进行调用而不是随机</param>
         /// <returns></returns>
-        public object ImplementFunc(IInvocation invocation, SocketClientMain session)
+        public object ImplementFunc(IInvocation invocation, SocketClientMain session,Guid? RRPCSessionID=null)
         {
             RequestExecutiveInformation information = new RequestExecutiveInformation()
             {
+                RRPCSessionID=RRPCSessionID,
                 AssemblyFullName = invocation.Method.DeclaringType.Assembly.FullName,
                 FullName = invocation.Method.DeclaringType.FullName,
                 ID = Guid.NewGuid(),

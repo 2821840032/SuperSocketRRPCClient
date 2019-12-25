@@ -26,6 +26,9 @@ namespace CommandConsoleLibrary.CommandOptionsMap
         [Option('p', "para", Required = false, HelpText = "参数")]
         public IEnumerable<string> para { get; set; }
 
+        [Option('i', "session", Required = false, HelpText = "强制指定某个client完成 用于被转发的请求")]
+        public Guid? RRPCSessionID { get; set; }
+
         public int Run(List<Type> commandExecutionRPClist, AOPContainer aOPContainer,SocketClientMain client)
         {
             try
@@ -67,7 +70,7 @@ namespace CommandConsoleLibrary.CommandOptionsMap
                     Console.WriteLine("格式化参数失败" + e.Message);
                 }
 
-                var obj = aOPContainer.GetServices(client, objType);
+                var obj = aOPContainer.GetServices(client, objType, RRPCSessionID);
 
                 var result = objMethod.Invoke(obj, paraList.ToArray());
 
