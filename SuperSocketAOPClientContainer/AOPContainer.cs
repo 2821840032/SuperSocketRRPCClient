@@ -19,15 +19,23 @@ namespace SuperSocketAOPClientContainer
     {
          
       
-        ProxyGenerator generator { get; set; }
         
+        ProxyGenerator generator { get; set; }
+
+        /// <summary>
+        /// 转换跳过的类型
+        /// </summary>
+        Dictionary<string,Type> TransformationSkipType;
         /// <summary>
         /// 容器对象
         /// </summary>
         public AOPContainer()
         {
             generator = new ProxyGenerator();
-           
+            TransformationSkipType = new Dictionary<string, Type>();
+            TransformationSkipType.Add(typeof(void).FullName,typeof(void));
+
+
         }
 
         /// <summary>
@@ -75,14 +83,18 @@ namespace SuperSocketAOPClientContainer
             var result = session.RemoteCallQueue.AddTaskQueue(information, session);
             session.RemoteCallQueue.RemoteExecutionFunc(result);
 
-
+            if (TransformationSkipType.TryGetValue(invocation.Method.ReturnType.FullName, out var value))
+            {
+                return null;
+            }
             result.WaitHandle.WaitOne();
             switch (result.State)
             {
                 case ReceiveMessageState.Wait:
                     throw new Exception("任务出现错误，目前正在等待状态，却通过了健康检查");
                 case ReceiveMessageState.Success:
-                    var obj = JsonConvert.DeserializeObject(result.ReturnValue, invocation.Method.ReturnType);
+                   
+                     var obj = JsonConvert.DeserializeObject(result.ReturnValue, invocation.Method.ReturnType);
                     return obj;
                 case ReceiveMessageState.Overtime:
                     throw new Exception("任务超时：" + result.ReturnValue);
