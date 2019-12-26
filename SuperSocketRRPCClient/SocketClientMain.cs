@@ -62,7 +62,17 @@ namespace SuperSocketRRPCClient
             RemoteEndpoint = new IPEndPoint(IPAddress.Parse(ip), prot);
             Initialize(new MyReceiveFilter(), monitorReceived.onReceived);
 
-            retryMechanism.ConnectionInit().Wait();
+            if (immediateConnection)
+            {
+                retryMechanism.ConnectionInit();
+            }
+        }
+        /// <summary>
+        /// 启动连接
+        /// </summary>
+        /// <returns></returns>
+        public async Task ConnectionStart() {
+            await retryMechanism.ConnectionInit();
         }
 
 
