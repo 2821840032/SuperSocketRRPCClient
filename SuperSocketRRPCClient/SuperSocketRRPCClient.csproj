@@ -4,9 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Ming</Company>
     <Authors>Ming</Authors>
-    <Description>新增指定程序集（类库）转发请求而不仅仅是某个类
-新增指定某个客户端负责某个请求而不是随机</Description>
-    <Version>1.1.4</Version>
+    <Description>修复immediateConnection入参无效的BUG</Description>
+    <Version>1.1.5</Version>
     <PackageReleaseNotes>SuperSocket封装的双向RPC通讯组件很简陋 客户端</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

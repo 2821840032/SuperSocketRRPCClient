@@ -37,10 +37,7 @@ namespace CommandConsoleLibrary
         /// 启动监听命令
         /// </summary>
         public void MonitorCommand() {
-            while (true)
-            {
                 Monitor();
-            }
         }
         int Monitor()
         {

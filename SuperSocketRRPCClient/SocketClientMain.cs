@@ -61,7 +61,7 @@ namespace SuperSocketRRPCClient
             Closed += retryMechanism.onClose;
             RemoteEndpoint = new IPEndPoint(IPAddress.Parse(ip), prot);
             Initialize(new MyReceiveFilter(), monitorReceived.onReceived);
-
+            
             if (immediateConnection)
             {
                 retryMechanism.ConnectionInit();

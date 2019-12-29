@@ -11,3 +11,6 @@
 /SuperSocketRRPCClient/obj
 /CommandConsoleLibrary/bin/Debug
 /CommandConsoleLibrary/obj
+/SuperSocketRRPCClient/bin/Release/netstandard2.0
+/SuperSocketAOPClientContainer/bin/Release/netstandard2.0
+/CommandConsoleLibrary/bin/Release/netstandard2.0
