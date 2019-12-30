@@ -103,17 +103,8 @@ namespace SuperSocketAOPClientContainer
                 case ReceiveMessageState.Wait:
                     throw new Exception("任务出现错误，目前正在等待状态，却通过了健康检查");
                 case ReceiveMessageState.Success:
-                    if (filterType != null&&filterType.IsReplaceResult)
-                    {
-                        return filterType.Result;
-                    }
-                    else {
-
-                        var obj = JsonConvert.DeserializeObject(result.ReturnValue, invocation.Method.ReturnType);
-                        return obj;
-                   
-                    }
-                   
+                    var obj = JsonConvert.DeserializeObject(result.ReturnValue, invocation.Method.ReturnType);
+                    return obj;
                 case ReceiveMessageState.Overtime:
                     throw new Exception("任务超时：" + result.ReturnValue);
                 case ReceiveMessageState.Error:

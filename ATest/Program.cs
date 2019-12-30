@@ -24,20 +24,12 @@ namespace ATest
             string ll = Console.ReadLine();
             while ("q"!= ll)
             {
-                try
+                Parallel.For(0, 20, (A) =>
                 {
-
-                    var result = Container.GetServices<IADD>(client).AsyncMM();
-                    //var result = Container.GetServices<IADD>(client,Guid.Parse(ll)).GetRequestInfo(Guid.NewGuid());
-                    ll = Console.ReadLine();
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    ll = Console.ReadLine();
-                }
-              
+                    var result = Container.GetServices<IADD>(client).AsyncMM(50);
+                    Console.WriteLine(A + "/1000");
+                });
+                ll = Console.ReadLine();
             }
             Console.WriteLine("Over");
             

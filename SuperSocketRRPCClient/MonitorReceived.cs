@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using Unity;
 
 namespace SuperSocketRRPCClient
@@ -88,12 +89,12 @@ namespace SuperSocketRRPCClient
         /// </summary>
         /// <param name="info">信息</param>
         /// <param name="requestInfo">基础信息</param>
-        void ImplementFunc(RequestExecutiveInformation info, RequestBaseInfo requestInfo)
+        async void ImplementFunc(RequestExecutiveInformation info, RequestBaseInfo requestInfo)
         {
+            await Task.Yield();
             //接收RPC的请求
             if (unityCon.GetService(info.FullName, socket, info,requestInfo, socket.UnityContainer, out object executionObj, out var iServerType))
             {
-
                 var methodType = iServerType.GetMethod(info.MethodName);
                 List<object> paraList = new List<object>();
                 var paras = methodType.GetParameters();
@@ -101,6 +102,7 @@ namespace SuperSocketRRPCClient
                 {
                     paraList.Add(JsonConvert.DeserializeObject(info.Arguments[i], paras[i].ParameterType));
                 }
+              
                 info.ReturnValue = JsonConvert.SerializeObject(methodType.Invoke(executionObj, paraList.ToArray()));
                 var msg = JsonConvert.SerializeObject(info);
                 socket.SendMessage(msg);

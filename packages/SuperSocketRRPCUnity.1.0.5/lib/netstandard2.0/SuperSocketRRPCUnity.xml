@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SuperSocketRRPCUnity</name>
+    </assembly>
+    <members>
+        <member name="T:SuperSocketRRPCUnity.UnityInIt`3">
+            <summary>
+            初始化一个容器
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCUnity.UnityInIt`3.BaseProvideServicesFullName">
+            <summary>
+             BaseProvideServices FulleName 
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCUnity.UnityInIt`3.socketPropertyInfo">
+            <summary>
+            Socket PropertyInfo
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCUnity.UnityInIt`3.infoPropertyInfo">
+            <summary>
+            info PropertyInfo
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCUnity.UnityInIt`3.requestInfoPropertyInfo">
+            <summary>
+            requestInfo PropertyInfo
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCUnity.UnityInIt`3.containerPropertyInfo">
+            <summary>
+            requestInfo container
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCUnity.UnityInIt`3.ContainerObjList">
+            <summary>
+            容器对象 接口 FullName  实现类Type 实现类父对象是否为指定FullName
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCUnity.UnityInIt`3.unityContainer">
+            <summary>
+            unity 容器对象对象
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCUnity.UnityInIt`3.#ctor(System.String,System.Reflection.PropertyInfo,System.Reflection.PropertyInfo,System.Reflection.PropertyInfo,System.Reflection.PropertyInfo)">
+            <summary>
+            初始化容器对象
+            </summary>
+            <param name="BaseProvideServicesFullName">需要监听的对象值</param>
+            <param name="socketPropertyInfo">连接对象属性Type</param>
+            <param name="infoPropertyInfo">请求信息对象属性Type</param>
+            <param name="requestInfoPropertyInfo">基础请求信息对象属性</param>
+            <param name="containerPropertyInfo">容器对象</param>
+        </member>
+        <member name="M:SuperSocketRRPCUnity.UnityInIt`3.AddServer``2">
+            <summary>
+            添加接口到容器中
+            </summary>
+            <typeparam name="IT">接口</typeparam>
+            <typeparam name="T">实现</typeparam>
+        </member>
+        <member name="M:SuperSocketRRPCUnity.UnityInIt`3.GetService(System.String,`0,`1,`2,Unity.IUnityContainer,System.Object@,System.Type@)">
+            <summary>
+            获取接口
+            </summary>
+            <param name="fullName">接口的FullName</param>
+            <param name="obj">返回的对象</param>
+            <param name="InterfaceType">接口类型</param>
+            <param name="session">连接对象</param>
+            <param name="info">请求信息</param>
+            <param name="requestInfo">基础请求信息</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
