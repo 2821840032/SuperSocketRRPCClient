@@ -3,7 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Ming</Authors>
-    <Description>修复void 请求异常的问题</Description>
+    <Description>BaseProvideServices 新增RequestClientSession 对象
+用于了解是谁发起的请求
+添加Filter过滤器</Description>
     <Version>1.1.7</Version>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

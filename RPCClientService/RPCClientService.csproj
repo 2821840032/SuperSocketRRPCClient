@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IRPCClientService\IRPCClientService.csproj" />
+    <ProjectReference Include="..\SuperSocketAOPClientContainer\SuperSocketAOPClientContainer.csproj" />
+    <ProjectReference Include="..\SuperSocketRRPCClient\SuperSocketRRPCClient.csproj" />
   </ItemGroup>
 
 </Project>

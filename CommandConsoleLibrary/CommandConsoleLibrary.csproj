@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Ming</Authors>
-    <Description>修复void 请求异常的问题</Description>
+    <Description>修复void 请求异常的问题
+添加Filter过滤器</Description>
     <Version>1.1.7</Version>
     <PackageId>SuperSocketRRPCClientCommandConsole</PackageId>
   </PropertyGroup>

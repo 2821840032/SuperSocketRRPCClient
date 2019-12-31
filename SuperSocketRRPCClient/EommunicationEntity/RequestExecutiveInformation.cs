@@ -46,5 +46,11 @@ namespace SuperSocketRRPCClient
         /// 强制指定由谁来负责接收调用
         /// </summary>
         public Guid? RRPCSessionID { get; set; }
+
+        /// <summary>
+        /// 请求客户端Session
+        /// </summary>
+        public Guid? RequestClientSession { get; set; }
+
     }
 }

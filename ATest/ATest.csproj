@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\supersocketTest\supersocketTest\IRPCService\IRPCService.csproj" />
+    <ProjectReference Include="..\RPCClientService\RPCClientService.csproj" />
     <ProjectReference Include="..\SuperSocketAOPClientContainer\SuperSocketAOPClientContainer.csproj" />
     <ProjectReference Include="..\SuperSocketRRPCClient\SuperSocketRRPCClient.csproj" />
   </ItemGroup>

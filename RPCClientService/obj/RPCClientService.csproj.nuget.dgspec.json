@@ -92,6 +92,12 @@
             "projectReferences": {
               "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\IRPCClientService\\IRPCClientService.csproj": {
                 "projectPath": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\IRPCClientService\\IRPCClientService.csproj"
+              },
+              "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketAOPClientContainer\\SuperSocketAOPClientContainer.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketAOPClientContainer\\SuperSocketAOPClientContainer.csproj"
+              },
+              "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClient\\SuperSocketRRPCClient.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClient\\SuperSocketRRPCClient.csproj"
               }
             }
           }
@@ -110,6 +116,148 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketAOPClientContainer\\SuperSocketAOPClientContainer.csproj": {
+      "version": "1.1.7",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketAOPClientContainer\\SuperSocketAOPClientContainer.csproj",
+        "projectName": "SuperSocketAOPClientContainer",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketAOPClientContainer\\SuperSocketAOPClientContainer.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketAOPClientContainer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://47.106.157.26:90/nuget/NugetMan/": {},
+          "https://nuget.cdn.azure.cn/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {
+              "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClient\\SuperSocketRRPCClient.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClient\\SuperSocketRRPCClient.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "Castle.Core": {
+              "target": "Package",
+              "version": "[4.4.0, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClient\\SuperSocketRRPCClient.csproj": {
+      "version": "1.1.7",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClient\\SuperSocketRRPCClient.csproj",
+        "projectName": "SuperSocketRRPCClient",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClient\\SuperSocketRRPCClient.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\NetProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClientProject\\SuperSocketRRPCClient\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://47.106.157.26:90/nuget/NugetMan/": {},
+          "https://nuget.cdn.azure.cn/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "SuperSocket.ClientEngine": {
+              "target": "Package",
+              "version": "[0.10.0, )"
+            },
+            "SuperSocket.ProtoBase": {
+              "target": "Package",
+              "version": "[1.7.0.17, )"
+            },
+            "SuperSocketRRPCUnity": {
+              "target": "Package",
+              "version": "[1.0.7, )"
             }
           },
           "imports": [

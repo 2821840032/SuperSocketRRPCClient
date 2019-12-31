@@ -29,5 +29,12 @@ namespace SuperSocketRRPCClient.Entity
         /// 容器对象
         /// </summary>
         public IUnityContainer Container { get; internal set; }
+
+        /// <summary>
+        /// 如果是转发的 那么他将会有值
+        /// 用来记录是谁发起的请求
+        /// 请求客户端Session
+        /// </summary>
+        public Guid? RequestClientSession { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SuperSocketRRPCClient.AttributeEntity;
 using SuperSocketRRPCClient.Entity;
 using SuperSocketRRPCUnity;
 using System;
@@ -7,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Unity;
-
+using System.Linq;
 namespace SuperSocketRRPCClient
 {
     /// <summary>
@@ -22,6 +23,10 @@ namespace SuperSocketRRPCClient
         public UnityInIt<SocketClientMain, RequestExecutiveInformation, RequestBaseInfo> unityCon { get; private set; }
 
 
+        /// <summary>
+        /// 请求过滤器类型
+        /// </summary>
+        Type _RequestFilterAttribte { get; set; }
 
         SocketClientMain socket { get; set; }
 
@@ -37,7 +42,9 @@ namespace SuperSocketRRPCClient
                 baseProvideServicesType.GetProperty("Socket"), 
                 baseProvideServicesType.GetProperty("Info"),
                 baseProvideServicesType.GetProperty("RequestInfo"),
-                baseProvideServicesType.GetProperty("Container"));
+                baseProvideServicesType.GetProperty("Container"),
+                baseProvideServicesType.GetProperty("RequestClientSession"));
+            _RequestFilterAttribte = typeof(RequestFilterAttribte);
         }
 
 
@@ -93,25 +100,76 @@ namespace SuperSocketRRPCClient
         {
             await Task.Yield();
             //接收RPC的请求
-            if (unityCon.GetService(info.FullName, socket, info,requestInfo, socket.UnityContainer, out object executionObj, out var iServerType))
+            if (unityCon.GetService(info.FullName, socket, info,requestInfo, socket.UnityContainer, info.RequestClientSession, out object executionObj, out var iServerType))
             {
+
                 var methodType = iServerType.GetMethod(info.MethodName);
+
+                List<object> attribtes = new List<object>();
+                attribtes.AddRange(iServerType.CustomAttributes.Select(d => d.Constructor.Invoke(null)).ToArray());
+                attribtes.AddRange(methodType.GetCustomAttributes(_RequestFilterAttribte, true));
+                //Filter前
+                if (!BeforeExecutionAttribte(attribtes, (BaseProvideServices)executionObj))
+                {
+                    return;
+                }
+
                 List<object> paraList = new List<object>();
                 var paras = methodType.GetParameters();
                 for (int i = 0; i < info.Arguments.Count; i++)
                 {
                     paraList.Add(JsonConvert.DeserializeObject(info.Arguments[i], paras[i].ParameterType));
                 }
-              
+
                 info.ReturnValue = JsonConvert.SerializeObject(methodType.Invoke(executionObj, paraList.ToArray()));
-                var msg = JsonConvert.SerializeObject(info);
-                socket.SendMessage(msg);
+
+                if (AfterxecutionExecutionAttribte(attribtes, (BaseProvideServices)executionObj, info.ReturnValue))
+                {
+                    var msg = JsonConvert.SerializeObject(info);
+                    socket.SendMessage(msg);
+                }
+
             }
             else {
                 socket.Log("收到一个未知的请求" +info.FullName, LoggerType.Error);
             }
+        }
 
-          
+        /// <summary>
+        /// 执行前方法前
+        /// </summary>
+        /// <param name="attributes">过滤类型</param>
+        /// <param name="executionObj">执行对象</param>
+        private bool BeforeExecutionAttribte(List<object> attributes, BaseProvideServices executionObj)
+        {
+            var result = true;
+            foreach (RequestFilterAttribte item in attributes)
+            {
+                if (!item.BeforeExecution(executionObj))
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 执行方法后
+        /// </summary>
+        /// <param name="attributes">过滤类型</param>
+        /// <param name="executionObj">执行对象</param>
+        /// <param name="impResult">结果</param>
+        /// <returns></returns>
+        private bool AfterxecutionExecutionAttribte(List<object> attributes,BaseProvideServices executionObj, object impResult) {
+            var result = true;
+            foreach (RequestFilterAttribte item in attributes)
+            {
+                if (!item.Afterxecution(executionObj, impResult))
+                {
+                    result = false;
+                }
+            }
+            return result;
         }
     }
 }

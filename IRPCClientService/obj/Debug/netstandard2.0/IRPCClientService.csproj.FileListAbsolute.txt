@@ -1,0 +1,8 @@
+C:\Users\Administrator\Desktop\NetProject\SuperSocketRRPCClientProject\SuperSocketRRPCClientProject\IRPCClientService\bin\Debug\netstandard2.0\IRPCClientService.deps.json
+C:\Users\Administrator\Desktop\NetProject\SuperSocketRRPCClientProject\SuperSocketRRPCClientProject\IRPCClientService\bin\Debug\netstandard2.0\IRPCClientService.dll
+C:\Users\Administrator\Desktop\NetProject\SuperSocketRRPCClientProject\SuperSocketRRPCClientProject\IRPCClientService\bin\Debug\netstandard2.0\IRPCClientService.pdb
+C:\Users\Administrator\Desktop\NetProject\SuperSocketRRPCClientProject\SuperSocketRRPCClientProject\IRPCClientService\obj\Debug\netstandard2.0\IRPCClientService.csprojAssemblyReference.cache
+C:\Users\Administrator\Desktop\NetProject\SuperSocketRRPCClientProject\SuperSocketRRPCClientProject\IRPCClientService\obj\Debug\netstandard2.0\IRPCClientService.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\NetProject\SuperSocketRRPCClientProject\SuperSocketRRPCClientProject\IRPCClientService\obj\Debug\netstandard2.0\IRPCClientService.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\NetProject\SuperSocketRRPCClientProject\SuperSocketRRPCClientProject\IRPCClientService\obj\Debug\netstandard2.0\IRPCClientService.dll
+C:\Users\Administrator\Desktop\NetProject\SuperSocketRRPCClientProject\SuperSocketRRPCClientProject\IRPCClientService\obj\Debug\netstandard2.0\IRPCClientService.pdb

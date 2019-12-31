@@ -4,8 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Ming</Company>
     <Authors>Ming</Authors>
-    <Description>修改异步请求互相等待的BUG</Description>
-    <Version>1.1.6</Version>
+    <Description>BaseProvideServices 新增RequestClientSession 对象
+用于了解是谁发起的请求
+添加Filter过滤器</Description>
+    <Version>1.1.7</Version>
     <PackageReleaseNotes>SuperSocket封装的双向RPC通讯组件很简陋 客户端</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
@@ -14,7 +16,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SuperSocket.ClientEngine" Version="0.10.0" />
     <PackageReference Include="SuperSocket.ProtoBase" Version="1.7.0.17" />
-    <PackageReference Include="SuperSocketRRPCUnity" Version="1.0.5" />
+    <PackageReference Include="SuperSocketRRPCUnity" Version="1.0.7" />
   </ItemGroup>
 
 </Project>

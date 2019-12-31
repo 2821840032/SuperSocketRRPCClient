@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SuperSocketAOPClientContainer</name>
+    </assembly>
+    <members>
+        <member name="T:SuperSocketAOPClientContainer.AOPContainer">
+            <summary>
+            AOP 容器对象
+            </summary>
+        </member>
+        <member name="P:SuperSocketAOPClientContainer.AOPContainer.TransformationSkipType">
+            <summary>
+            转换跳过的类型
+            </summary>
+        </member>
+        <member name="M:SuperSocketAOPClientContainer.AOPContainer.#ctor">
+            <summary>
+            容器对象
+            </summary>
+        </member>
+        <member name="M:SuperSocketAOPClientContainer.AOPContainer.GetServices(SuperSocketRRPCClient.SocketClientMain,System.Type,System.Nullable{System.Guid})">
+            <summary>
+            获取远程类
+            </summary>
+            <param name="session">需要通讯的对象</param>
+            <param name="serverType">需要实例化的类型</param>
+             <param name="RRPCSessionID">指定的Session完成任务而不是随机，若服务器有指定则会有限服务器指定的对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:SuperSocketAOPClientContainer.AOPContainer.GetServices``1(SuperSocketRRPCClient.SocketClientMain,System.Nullable{System.Guid})">
+            <summary>
+            获取远程类
+            </summary>
+            <typeparam name="T">对象</typeparam>
+            <param name="session">需要通讯的对象</param>
+            <param name="RRPCSessionID">指定由谁来进行调用而不是随机</param>
+            <returns></returns>
+        </member>
+        <member name="M:SuperSocketAOPClientContainer.AOPContainer.ImplementFunc(Castle.DynamicProxy.IInvocation,SuperSocketRRPCClient.SocketClientMain,System.Nullable{System.Guid})">
+            <summary>
+            调用实现函数
+            </summary>
+            <param name="invocation">信息</param>
+            <param name="session">连接对象</param>
+            <param name="RRPCSessionID">指定由谁来进行调用而不是随机</param>
+            <returns></returns>
+        </member>
+        <member name="T:SuperSocketAOPClientContainer.AOPFilterEntity">
+            <summary>
+            AOP过滤器实体
+            </summary>
+        </member>
+        <member name="P:SuperSocketAOPClientContainer.AOPFilterEntity.FullName">
+            <summary>
+            检查类型FullName
+            </summary>
+        </member>
+        <member name="P:SuperSocketAOPClientContainer.AOPFilterEntity.IsReturn">
+            <summary>
+            是否立即返回做异步处理
+            </summary>
+        </member>
+        <member name="P:SuperSocketAOPClientContainer.AOPFilterEntity.IsReplaceResult">
+            <summary>
+            IsReturn = false 的情况下 完成远程请求后替换结果
+            </summary>
+        </member>
+        <member name="P:SuperSocketAOPClientContainer.AOPFilterEntity.Result">
+            <summary>
+            返货结果
+            </summary>
+        </member>
+        <member name="T:SuperSocketAOPClientContainer.AOPRPCInterceptor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SuperSocketAOPClientContainer.AOPRPCInterceptor.#ctor(System.Func{Castle.DynamicProxy.IInvocation,System.Object})">
+            <summary>
+            
+            </summary>
+            <param name="implement"></param>
+        </member>
+        <member name="M:SuperSocketAOPClientContainer.AOPRPCInterceptor.PreProceed(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            请求前
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <member name="M:SuperSocketAOPClientContainer.AOPRPCInterceptor.PerformProceed(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            请求中
+            </summary>
+            <param name="invocation"></param>
+        </member>
+        <member name="M:SuperSocketAOPClientContainer.AOPRPCInterceptor.PostProceed(Castle.DynamicProxy.IInvocation)">
+            <summary>
+            请求后
+            </summary>
+            <param name="invocation"></param>
+        </member>
+    </members>
+</doc>

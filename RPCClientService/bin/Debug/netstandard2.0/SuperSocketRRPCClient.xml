@@ -1,0 +1,532 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SuperSocketRRPCClient</name>
+    </assembly>
+    <members>
+        <member name="T:SuperSocketRRPCClient.AttributeEntity.RequestFilterAttribte">
+            <summary>
+            请求过滤器
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.AttributeEntity.RequestFilterAttribte.Label">
+            <summary>
+            标签  仅仅用来做注释使用
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.AttributeEntity.RequestFilterAttribte.BeforeExecution(SuperSocketRRPCClient.Entity.BaseProvideServices)">
+            <summary>
+            请求前
+            </summary>
+            <param name="baseProvideServices">实例化对象</param>
+            <returns>false 则不执行，true 则通过</returns>
+        </member>
+        <member name="M:SuperSocketRRPCClient.AttributeEntity.RequestFilterAttribte.Afterxecution(SuperSocketRRPCClient.Entity.BaseProvideServices,System.Object)">
+            <summary>
+            请求后
+            </summary>
+            <param name="baseProvideServices">实例化对象</param>
+            <param name="result">值</param>
+            <returns>false 则不发送结果值 true则通过</returns>
+        </member>
+        <member name="T:SuperSocketRRPCClient.Entity.BaseProvideServices">
+            <summary>
+            提供服务的基础类 如果你需要用到其中的信息的话
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.BaseProvideServices.Socket">
+            <summary>
+            操作连接对象
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.BaseProvideServices.Info">
+            <summary>
+            本次任务的信息
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.BaseProvideServices.RequestInfo">
+            <summary>
+            最基础的请求信息
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.BaseProvideServices.Container">
+            <summary>
+            容器对象
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.BaseProvideServices.RequestClientSession">
+            <summary>
+            如果是转发的 那么他将会有值
+            用来记录是谁发起的请求
+            请求客户端Session
+            </summary>
+        </member>
+        <member name="T:SuperSocketRRPCClient.Entity.ReceiveMessageState">
+            <summary>
+            接收信息的状态
+            </summary>
+        </member>
+        <member name="F:SuperSocketRRPCClient.Entity.ReceiveMessageState.Wait">
+            <summary>
+            等待
+            </summary>
+        </member>
+        <member name="F:SuperSocketRRPCClient.Entity.ReceiveMessageState.Success">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:SuperSocketRRPCClient.Entity.ReceiveMessageState.Overtime">
+            <summary>
+            超时
+            </summary>
+        </member>
+        <member name="F:SuperSocketRRPCClient.Entity.ReceiveMessageState.Error">
+            <summary>
+            错误
+            </summary>
+        </member>
+        <member name="F:SuperSocketRRPCClient.Entity.ReceiveMessageState.Other">
+            <summary>
+            其他
+            </summary>
+        </member>
+        <member name="T:SuperSocketRRPCClient.Entity.RemoteCallEntrity">
+            <summary>
+            任务存储的信息
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.RemoteCallEntrity.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.RemoteCallEntrity.ClientSocket">
+            <summary>
+            通讯对象
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.RemoteCallEntrity.State">
+            <summary>
+            任务状态
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.RemoteCallEntrity.ExpirationTime">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.RemoteCallEntrity.ReturnValue">
+            <summary>
+            远程任务处理结果
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.RemoteCallEntrity.RetryCount">
+            <summary>
+            重试次数
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.RemoteCallEntrity.TaskInfo">
+            <summary>
+            任务信息
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.Entity.RemoteCallEntrity.WaitHandle">
+            <summary>
+            通知执行委托
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.Entity.RemoteCallEntrity.#ctor(System.Guid,SuperSocketRRPCClient.RequestExecutiveInformation,SuperSocketRRPCClient.Entity.ReceiveMessageState,System.DateTime,SuperSocketRRPCClient.SocketClientMain)">
+            <summary>
+            任务对象
+            </summary>
+            <param name="id">任务ID</param>
+            <param name="taskInfo">传输对象</param>
+            <param name="state">状态</param>
+            <param name="expirationTime">超时时间</param>
+            <param name="socket">连接对象</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.Entity.RemoteCallEntrity.ProcessingFuncInvoke(System.String)">
+            <summary>
+            修改结果并执行委托函数
+            </summary>
+            <param name="rpcResult"></param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.Entity.RemoteCallEntrity.ProcessingFuncInvoke(SuperSocketRRPCClient.Entity.ReceiveMessageState,System.String)">
+            <summary>
+            修改结果并执行委托函数
+            </summary>
+            <param name="state">状态</param>
+            <param name="rpcResult">结果</param>
+        </member>
+        <member name="T:SuperSocketRRPCClient.RequestBaseInfo">
+            <summary>
+            接受信息最基础的类
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestBaseInfo.body">
+            <summary>
+            传输值
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RequestBaseInfo.#ctor(System.Byte[])">
+            <summary>
+            传输状态最基础的类 除开头部length
+            </summary>
+            <param name="body"></param>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestBaseInfo.bodyMeg">
+            <summary>
+            Utf-8解析body
+            </summary>
+        </member>
+        <member name="T:SuperSocketRRPCClient.RequestExecutiveInformation">
+            <summary>
+            请求信息
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestExecutiveInformation.ID">
+            <summary>
+            本次请求的ID
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestExecutiveInformation.AssemblyFullName">
+            <summary>
+            Assembly 标识
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestExecutiveInformation.FullName">
+            <summary>
+            FullName名称
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestExecutiveInformation.MethodName">
+            <summary>
+            方法名称
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestExecutiveInformation.Arguments">
+            <summary>
+            参数列表
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestExecutiveInformation.ReturnValue">
+            <summary>
+            RPC调用结果 json
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestExecutiveInformation.RRPCSessionID">
+            <summary>
+            强制指定由谁来负责接收调用
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RequestExecutiveInformation.RequestClientSession">
+            <summary>
+            请求客户端Session
+            </summary>
+        </member>
+        <member name="T:SuperSocketRRPCClient.LoggerAssembly">
+            <summary>
+            日志组件
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.LoggerAssembly.LoggerList">
+            <summary>
+            日志列表
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.LoggerAssembly.Log(SuperSocketRRPCClient.SocketClientMain,System.String,SuperSocketRRPCClient.LoggerType)">
+            <summary>
+            打印日志
+            </summary>
+            <param name="socket">连接</param>
+            <param name="loggerType">日志类型</param>
+            <param name="message">信息</param>
+        </member>
+        <member name="T:SuperSocketRRPCClient.LoggerType">
+            <summary>
+            日志类型
+            </summary>
+        </member>
+        <member name="F:SuperSocketRRPCClient.LoggerType.Error">
+            <summary>
+            异常
+            </summary>
+        </member>
+        <member name="F:SuperSocketRRPCClient.LoggerType.Warning">
+            <summary>
+            警告
+            </summary>
+        </member>
+        <member name="F:SuperSocketRRPCClient.LoggerType.Info">
+            <summary>
+            信息
+            </summary>
+        </member>
+        <member name="T:SuperSocketRRPCClient.LoggerInfo">
+            <summary>
+            日志信息
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.LoggerInfo.LoggerType">
+            <summary>
+            日志类型
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.LoggerInfo.Message">
+            <summary>
+            信息
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.LoggerInfo.Time">
+            <summary>
+            触发时间
+            </summary>
+        </member>
+        <member name="T:SuperSocketRRPCClient.MonitorReceived">
+            <summary>
+            请求监听类
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.MonitorReceived.unityCon">
+            <summary>
+            容器对象
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.MonitorReceived._RequestFilterAttribte">
+            <summary>
+            请求过滤器类型
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.#ctor(SuperSocketRRPCClient.SocketClientMain)">
+            <summary>
+            请求监听类
+            </summary>
+            <param name="socket">连接对象</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.AddServer``2">
+            <summary>
+            为所有启动的服务器注册服务
+            </summary>
+            <typeparam name="IT"></typeparam>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.onReceived(SuperSocketRRPCClient.RequestBaseInfo)">
+            <summary>
+            收到请求事件
+            </summary>
+            <param name="stringPackageInfo"></param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.ImplementFunc(SuperSocketRRPCClient.RequestExecutiveInformation,SuperSocketRRPCClient.RequestBaseInfo)">
+            <summary>
+            执行RPC的调用
+            </summary>
+            <param name="info">信息</param>
+            <param name="requestInfo">基础信息</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.BeforeExecutionAttribte(System.Collections.Generic.List{System.Object},SuperSocketRRPCClient.Entity.BaseProvideServices)">
+            <summary>
+            执行前方法前
+            </summary>
+            <param name="attributes">过滤类型</param>
+            <param name="executionObj">执行对象</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.AfterxecutionExecutionAttribte(System.Collections.Generic.List{System.Object},SuperSocketRRPCClient.Entity.BaseProvideServices,System.Object)">
+            <summary>
+            执行方法后
+            </summary>
+            <param name="attributes">过滤类型</param>
+            <param name="executionObj">执行对象</param>
+            <param name="impResult">结果</param>
+            <returns></returns>
+        </member>
+        <member name="T:SuperSocketRRPCClient.MyReceiveFilter">
+            <summary>
+            二进制请求解析器
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MyReceiveFilter.#ctor">
+            <summary>
+            二进制解析器
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MyReceiveFilter.ResolvePackage(SuperSocket.ProtoBase.IBufferStream)">
+            <summary>
+            
+            </summary>
+            <param name="bufferStream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MyReceiveFilter.GetBodyLengthFromHeader(SuperSocket.ProtoBase.IBufferStream,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="bufferStream"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SuperSocketRRPCClient.RemoteCallQueue">
+            <summary>
+            任务队列管理
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RemoteCallQueue.second">
+            <summary>
+            超时时间
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RemoteCallQueue.MaxRetryCount">
+            <summary>
+            最大重试次数
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.RemoteCallQueue.MethodCallQueues">
+            <summary>
+            任务列表
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RemoteCallQueue.#ctor(System.Int32,System.Int32)">
+            <summary>
+            开启队列管理
+            </summary>
+            <param name="second">任务超时时间</param>
+            <param name="maxRetryCount">最大重试次数</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RemoteCallQueue.AddTaskQueue(SuperSocketRRPCClient.RequestExecutiveInformation,SuperSocketRRPCClient.SocketClientMain)">
+            <summary>
+            添加一个任务到队列
+            </summary>
+            <param name="info">信息</param>
+            <param name="socket">远程连接</param>
+            <returns></returns>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RemoteCallQueue.RemoteExecutionFuncAsync(SuperSocketRRPCClient.Entity.RemoteCallEntrity)">
+            <summary>
+            进行远程调用
+            </summary>
+            <param name="info">通讯的信息</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RemoteCallQueue.RemoteExecutionFunc(SuperSocketRRPCClient.Entity.RemoteCallEntrity)">
+            <summary>
+            进行远程调用
+            </summary>
+            <param name="info">通讯的信息</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RemoteCallQueue.healthExaminationFunc(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            监控检查函数
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RemoteCallQueue.ScheduledCleaningFunc(System.Object,System.Timers.ElapsedEventArgs)">
+            <summary>
+            定时清理函数
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RemoteCallQueue.GetTaskIDAndSuccess(System.Guid,System.String)">
+            <summary>
+            根据任务ID获取任务信息并修改状态为以完成
+            </summary>
+            <param name="id">任务ID</param>
+            <param name="rpcResule">内容</param>
+            <returns>true 找到并修改信息 false未找到</returns>
+        </member>
+        <member name="T:SuperSocketRRPCClient.RetryMechanism">
+            <summary>
+            重试机制
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RetryMechanism.#ctor(SuperSocketRRPCClient.SocketClientMain)">
+            <summary>
+            重试机制
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="F:SuperSocketRRPCClient.RetryMechanism.TryreConnect">
+            <summary>
+            是否正在尝试重新连接
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RetryMechanism.ConnectionInit(System.Boolean)">
+            <summary>
+            是否为递归重试
+            </summary>
+            <param name="tryreConnect"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RetryMechanism.Connection">
+            <summary>
+            进行连接 
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RetryMechanism.onClose(System.Object,System.EventArgs)">
+            <summary>
+            连接关闭
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.RetryMechanism.onError(System.Object,SuperSocket.ClientEngine.ErrorEventArgs)">
+            <summary>
+            连接异常
+            </summary>
+            <param name="o"></param>
+            <param name="errorEvent"></param>
+        </member>
+        <member name="T:SuperSocketRRPCClient.SocketClientMain">
+            <summary>
+            Client SOcket
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.SocketClientMain.UnityContainer">
+            <summary>
+            unity 容器对象 一般用来存储如 数据库连接对象 工具之类的单例或者工厂
+            在RPCsetup中全局唯一 且能在服务中获取到它
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.SocketClientMain.monitorReceived">
+            <summary>
+            接收请求处理类
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.SocketClientMain.RemoteEndpoint">
+            <summary>
+            远程地址
+            </summary>
+        </member>
+        <member name="P:SuperSocketRRPCClient.SocketClientMain.RemoteCallQueue">
+            <summary>
+            远程任务队列
+            </summary>
+        </member>
+        <member name="M:SuperSocketRRPCClient.SocketClientMain.#ctor(System.String,System.Int32,System.Action{Unity.IUnityContainer},System.Int32,System.Int32,System.Boolean)">
+            <summary>
+             创建一个连接对象
+            </summary>
+            <param name="ip">远程地址</param>
+            <param name="prot">端口</param>
+            <param name="maxRetryCount">最大超时后重试次数</param>
+            <param name="acion">初始化注入的对象</param>
+            <param name="second">超时时间</param>
+            <param name="immediateConnection">是否为立即连接</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.SocketClientMain.ConnectionStart">
+            <summary>
+            启动连接
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SuperSocketRRPCClient.SocketClientMain.SendMessage(System.String)">
+            <summary>
+            发送消息
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.SocketClientMain.AddServer``2">
+            <summary>
+            为所有启动的服务器注册服务
+            </summary>
+            <typeparam name="IT"></typeparam>
+            <typeparam name="T"></typeparam>
+        </member>
+    </members>
+</doc>

@@ -17,6 +17,7 @@ namespace SuperSocketRRPCClient
     /// </summary>
    public class SocketClientMain: EasyClient
     {
+        
         /// <summary>
         /// unity 容器对象 一般用来存储如 数据库连接对象 工具之类的单例或者工厂
         /// 在RPCsetup中全局唯一 且能在服务中获取到它

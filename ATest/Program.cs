@@ -1,5 +1,4 @@
-﻿using IRPCService;
-using SuperSocketAOPClientContainer;
+﻿using SuperSocketAOPClientContainer;
 using SuperSocketRRPCClient;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using SuperSocketRRPCClient.Entity;
 using Unity;
+using RPCClientService;
+using IRPCClientService;
 namespace ATest
 {
     class Program
@@ -18,12 +19,13 @@ namespace ATest
                 //unity.RegisterSingleton<IADD, ADD>();
             },15,0);
             AOPContainer Container = new AOPContainer();
-            //client.AddServer<IADD, ADD>();
+
+            client.AddServer<IADD, ADD>();
 
             string ll = Console.ReadLine();
             while ("q"!= ll)
             {
-                Container.GetServices<IRPCService.IADD>(client).ADDV(100,50);
+                Container.GetServices<IADD>(client).Ma();
                 
                 //Parallel.For(0, 20, (A) =>
                 //{
