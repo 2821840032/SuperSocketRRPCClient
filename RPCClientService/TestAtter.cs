@@ -8,17 +8,16 @@ namespace RPCClientService
 {
     public class TestAtter : RequestFilterAttribte
     {
-        public override bool Afterxecution(BaseProvideServices baseProvideServices, object result)
+
+        public override void Afterxecution(BaseProvideServices baseProvideServices, ref object result)
         {
             Console.WriteLine("请求后");
-         
-            return true;
         }
 
-        public override bool BeforeExecution(BaseProvideServices baseProvideServices)
+        public override void BeforeExecution(BaseProvideServices baseProvideServices, ref object result)
         {
+            result = "1";
             Console.WriteLine("请求前");
-            return true;
         }
     }
 }

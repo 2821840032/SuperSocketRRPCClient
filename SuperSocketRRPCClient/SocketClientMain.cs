@@ -41,6 +41,11 @@ namespace SuperSocketRRPCClient
         RetryMechanism retryMechanism { get; set; }
 
         /// <summary>
+        /// 异常处理 在执行Invoke的时候触发
+        /// </summary>
+        public  RequestException Requestexception { get; set; }
+
+        /// <summary>
         ///  创建一个连接对象
         /// </summary>
         /// <param name="ip">远程地址</param>
@@ -68,6 +73,7 @@ namespace SuperSocketRRPCClient
                 retryMechanism.ConnectionInit();
             }
         }
+
         /// <summary>
         /// 启动连接
         /// </summary>

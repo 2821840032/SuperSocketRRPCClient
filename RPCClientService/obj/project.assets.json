@@ -1357,12 +1357,12 @@
           "bin/placeholder/IRPCClientService.dll": {}
         }
       },
-      "SuperSocketAOPClientContainer/1.1.7": {
+      "SuperSocketAOPClientContainer/1.1.9": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Castle.Core": "4.4.0",
-          "SuperSocketRRPCClient": "1.1.7"
+          "SuperSocketRRPCClient": "1.1.9"
         },
         "compile": {
           "bin/placeholder/SuperSocketAOPClientContainer.dll": {}
@@ -1371,7 +1371,7 @@
           "bin/placeholder/SuperSocketAOPClientContainer.dll": {}
         }
       },
-      "SuperSocketRRPCClient/1.1.7": {
+      "SuperSocketRRPCClient/1.1.9": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -5045,12 +5045,12 @@
       "path": "../IRPCClientService/IRPCClientService.csproj",
       "msbuildProject": "../IRPCClientService/IRPCClientService.csproj"
     },
-    "SuperSocketAOPClientContainer/1.1.7": {
+    "SuperSocketAOPClientContainer/1.1.9": {
       "type": "project",
       "path": "../SuperSocketAOPClientContainer/SuperSocketAOPClientContainer.csproj",
       "msbuildProject": "../SuperSocketAOPClientContainer/SuperSocketAOPClientContainer.csproj"
     },
-    "SuperSocketRRPCClient/1.1.7": {
+    "SuperSocketRRPCClient/1.1.9": {
       "type": "project",
       "path": "../SuperSocketRRPCClient/SuperSocketRRPCClient.csproj",
       "msbuildProject": "../SuperSocketRRPCClient/SuperSocketRRPCClient.csproj"
@@ -5060,8 +5060,8 @@
     ".NETStandard,Version=v2.0": [
       "IRPCClientService >= 1.0.0",
       "NETStandard.Library >= 2.0.3",
-      "SuperSocketAOPClientContainer >= 1.1.7",
-      "SuperSocketRRPCClient >= 1.1.7"
+      "SuperSocketAOPClientContainer >= 1.1.9",
+      "SuperSocketRRPCClient >= 1.1.9"
     ]
   },
   "packageFolders": {

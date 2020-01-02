@@ -14,20 +14,22 @@
             标签  仅仅用来做注释使用
             </summary>
         </member>
-        <member name="M:SuperSocketRRPCClient.AttributeEntity.RequestFilterAttribte.BeforeExecution(SuperSocketRRPCClient.Entity.BaseProvideServices)">
+        <member name="M:SuperSocketRRPCClient.AttributeEntity.RequestFilterAttribte.BeforeExecution(SuperSocketRRPCClient.Entity.BaseProvideServices,System.Object@)">
             <summary>
             请求前
             </summary>
             <param name="baseProvideServices">实例化对象</param>
-            <returns>false 则不执行，true 则通过</returns>
+            <param name="result">not null 则表示响应 result结果值 </param>
+            <returns>
+            </returns>
         </member>
-        <member name="M:SuperSocketRRPCClient.AttributeEntity.RequestFilterAttribte.Afterxecution(SuperSocketRRPCClient.Entity.BaseProvideServices,System.Object)">
+        <member name="M:SuperSocketRRPCClient.AttributeEntity.RequestFilterAttribte.Afterxecution(SuperSocketRRPCClient.Entity.BaseProvideServices,System.Object@)">
             <summary>
             请求后
             </summary>
             <param name="baseProvideServices">实例化对象</param>
-            <param name="result">值</param>
-            <returns>false 则不发送结果值 true则通过</returns>
+            <param name="result">null 则表示终止发送数据 not null 则表示发送数据result</param>
+            <returns></returns>
         </member>
         <member name="T:SuperSocketRRPCClient.Entity.BaseProvideServices">
             <summary>
@@ -324,20 +326,37 @@
             <param name="info">信息</param>
             <param name="requestInfo">基础信息</param>
         </member>
-        <member name="M:SuperSocketRRPCClient.MonitorReceived.BeforeExecutionAttribte(System.Collections.Generic.List{System.Object},SuperSocketRRPCClient.Entity.BaseProvideServices)">
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.ResponseResult(SuperSocketRRPCClient.RequestExecutiveInformation,System.Object)">
+            <summary>
+            响应结果值
+            </summary>
+            <param name="info">请求信息</param>
+            <param name="result">结果值</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.ExecutionFunction(System.Reflection.MethodInfo,SuperSocketRRPCClient.RequestExecutiveInformation,System.Object,System.Object@)">
+            <summary>
+            执行函数
+            </summary>
+            <param name="methodInfo">执行方法type</param>
+            <param name="info">执行信息</param>
+            <param name="executionObj">执行对象</param>
+            <param name="result">结果值</param>
+        </member>
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.BeforeExecutionAttribte(System.Collections.Generic.List{System.Object},SuperSocketRRPCClient.Entity.BaseProvideServices,System.Object@)">
             <summary>
             执行前方法前
             </summary>
             <param name="attributes">过滤类型</param>
             <param name="executionObj">执行对象</param>
+            <param name="result">结果值 有值则返回 没值则继续</param>
         </member>
-        <member name="M:SuperSocketRRPCClient.MonitorReceived.AfterxecutionExecutionAttribte(System.Collections.Generic.List{System.Object},SuperSocketRRPCClient.Entity.BaseProvideServices,System.Object)">
+        <member name="M:SuperSocketRRPCClient.MonitorReceived.AfterxecutionExecutionAttribte(System.Collections.Generic.List{System.Object},SuperSocketRRPCClient.Entity.BaseProvideServices,System.Object@)">
             <summary>
             执行方法后
             </summary>
             <param name="attributes">过滤类型</param>
             <param name="executionObj">执行对象</param>
-            <param name="impResult">结果</param>
+            <param name="result">结果</param>
             <returns></returns>
         </member>
         <member name="T:SuperSocketRRPCClient.MyReceiveFilter">

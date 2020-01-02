@@ -121,14 +121,22 @@ namespace SuperSocketRRPCClient
                     paraList.Add(JsonConvert.DeserializeObject(info.Arguments[i], paras[i].ParameterType));
                 }
 
-                info.ReturnValue = JsonConvert.SerializeObject(methodType.Invoke(executionObj, paraList.ToArray()));
-
+                try
+                {
+                    var result = methodType.Invoke(executionObj, paraList.ToArray());
+                    info.ReturnValue = JsonConvert.SerializeObject(result);
+                }
+                catch (Exception e)
+                {
+                    info.ReturnValue = null;
+                    Console.WriteLine("处理请求时候出现异常:"+e);
+                    socket.Requestexception?.HandleException(e);
+                }
                 if (AfterxecutionExecutionAttribte(attribtes, (BaseProvideServices)executionObj, info.ReturnValue))
                 {
                     var msg = JsonConvert.SerializeObject(info);
                     socket.SendMessage(msg);
                 }
-
             }
             else {
                 socket.Log("收到一个未知的请求" +info.FullName, LoggerType.Error);

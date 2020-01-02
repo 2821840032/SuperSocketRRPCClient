@@ -4,10 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Ming</Company>
     <Authors>Ming</Authors>
-    <Description>BaseProvideServices 新增RequestClientSession 对象
-用于了解是谁发起的请求
-添加Filter过滤器</Description>
-    <Version>1.1.7</Version>
+    <Description>新增异常处理入口</Description>
+    <Version>1.1.9</Version>
     <PackageReleaseNotes>SuperSocket封装的双向RPC通讯组件很简陋 客户端</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
