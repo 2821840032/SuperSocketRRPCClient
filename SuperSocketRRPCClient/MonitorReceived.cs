@@ -109,10 +109,14 @@ namespace SuperSocketRRPCClient
                 attribtes.AddRange(iServerType.CustomAttributes.Where(d=>d.AttributeType==_RequestFilterAttribte).Select(d => d.Constructor.Invoke(null)).ToArray());
                 attribtes.AddRange(methodType.GetCustomAttributes(_RequestFilterAttribte, true));
                 //Filter前
-                if (!BeforeExecutionAttribte(attribtes, (BaseProvideServices)executionObj))
+                if (executionObj is BaseProvideServices)
                 {
-                    return;
+                    if (!BeforeExecutionAttribte(attribtes, (BaseProvideServices)executionObj))
+                    {
+                        return;
+                    }
                 }
+              
 
                 List<object> paraList = new List<object>();
                 var paras = methodType.GetParameters();
@@ -132,11 +136,15 @@ namespace SuperSocketRRPCClient
                     Console.WriteLine("处理请求时候出现异常:"+e);
                     socket.Requestexception?.HandleException(e);
                 }
-                if (AfterxecutionExecutionAttribte(attribtes, (BaseProvideServices)executionObj, info.ReturnValue))
+                if (executionObj is BaseProvideServices)
                 {
-                    var msg = JsonConvert.SerializeObject(info);
-                    socket.SendMessage(msg);
+                    if (AfterxecutionExecutionAttribte(attribtes, (BaseProvideServices)executionObj, info.ReturnValue))
+                    {
+                        var msg = JsonConvert.SerializeObject(info);
+                        socket.SendMessage(msg);
+                    }
                 }
+             
             }
             else {
                 socket.Log("收到一个未知的请求" +info.FullName, LoggerType.Error);

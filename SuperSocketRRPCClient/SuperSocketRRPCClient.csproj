@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Company>Ming</Company>
     <Authors>Ming</Authors>
-    <Description>修改AOP 过滤器没有进行Filter匹配的问题</Description>
-    <Version>1.2.0</Version>
+    <Description>添加 BaseProvideServices 对象拦截的判断</Description>
+    <Version>1.2.1</Version>
     <PackageReleaseNotes>SuperSocket封装的双向RPC通讯组件很简陋 客户端</PackageReleaseNotes>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
