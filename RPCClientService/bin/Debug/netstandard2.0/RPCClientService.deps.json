@@ -11,8 +11,8 @@
         "dependencies": {
           "IRPCClientService": "1.0.0",
           "NETStandard.Library": "2.0.3",
-          "SuperSocketAOPClientContainer": "1.1.7",
-          "SuperSocketRRPCClient": "1.1.7"
+          "SuperSocketAOPClientContainer": "1.1.9",
+          "SuperSocketRRPCClient": "1.1.9"
         },
         "runtime": {
           "RPCClientService.dll": {}
@@ -954,16 +954,16 @@
           "IRPCClientService.dll": {}
         }
       },
-      "SuperSocketAOPClientContainer/1.1.7": {
+      "SuperSocketAOPClientContainer/1.1.9": {
         "dependencies": {
           "Castle.Core": "4.4.0",
-          "SuperSocketRRPCClient": "1.1.7"
+          "SuperSocketRRPCClient": "1.1.9"
         },
         "runtime": {
           "SuperSocketAOPClientContainer.dll": {}
         }
       },
-      "SuperSocketRRPCClient/1.1.7": {
+      "SuperSocketRRPCClient/1.1.9": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "SuperSocket.ClientEngine": "0.10.0",
@@ -1568,12 +1568,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "SuperSocketAOPClientContainer/1.1.7": {
+    "SuperSocketAOPClientContainer/1.1.9": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "SuperSocketRRPCClient/1.1.7": {
+    "SuperSocketRRPCClient/1.1.9": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

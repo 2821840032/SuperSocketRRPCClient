@@ -106,7 +106,7 @@ namespace SuperSocketRRPCClient
                 var methodType = iServerType.GetMethod(info.MethodName);
 
                 List<object> attribtes = new List<object>();
-                attribtes.AddRange(iServerType.CustomAttributes.Select(d => d.Constructor.Invoke(null)).ToArray());
+                attribtes.AddRange(iServerType.CustomAttributes.Where(d=>d.AttributeType==_RequestFilterAttribte).Select(d => d.Constructor.Invoke(null)).ToArray());
                 attribtes.AddRange(methodType.GetCustomAttributes(_RequestFilterAttribte, true));
                 //Filter前
                 if (!BeforeExecutionAttribte(attribtes, (BaseProvideServices)executionObj))
