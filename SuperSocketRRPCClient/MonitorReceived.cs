@@ -124,11 +124,11 @@ namespace SuperSocketRRPCClient
                 {
                     paraList.Add(JsonConvert.DeserializeObject(info.Arguments[i], paras[i].ParameterType));
                 }
+                object result=null;
 
                 try
                 {
-                    var result = methodType.Invoke(executionObj, paraList.ToArray());
-                    info.ReturnValue = JsonConvert.SerializeObject(result);
+                     result = methodType.Invoke(executionObj, paraList.ToArray());
                 }
                 catch (Exception e)
                 {
@@ -138,11 +138,18 @@ namespace SuperSocketRRPCClient
                 }
                 if (executionObj is BaseProvideServices)
                 {
-                    if (AfterxecutionExecutionAttribte(attribtes, (BaseProvideServices)executionObj, info.ReturnValue))
+                    if (AfterxecutionExecutionAttribte(attribtes, (BaseProvideServices)executionObj,ref result))
                     {
+                        info.ReturnValue = JsonConvert.SerializeObject(result);
                         var msg = JsonConvert.SerializeObject(info);
                         socket.SendMessage(msg);
                     }
+                }
+                else {
+
+                    info.ReturnValue = JsonConvert.SerializeObject(result);
+                    var msg = JsonConvert.SerializeObject(info);
+                    socket.SendMessage(msg);
                 }
              
             }
@@ -176,11 +183,11 @@ namespace SuperSocketRRPCClient
         /// <param name="executionObj">执行对象</param>
         /// <param name="impResult">结果</param>
         /// <returns></returns>
-        private bool AfterxecutionExecutionAttribte(List<object> attributes,BaseProvideServices executionObj, object impResult) {
+        private bool AfterxecutionExecutionAttribte(List<object> attributes,BaseProvideServices executionObj,ref object impResult) {
             var result = true;
             foreach (RequestFilterAttribte item in attributes)
             {
-                if (!item.Afterxecution(executionObj, impResult))
+                if (!item.Afterxecution(executionObj, ref impResult))
                 {
                     result = false;
                 }
